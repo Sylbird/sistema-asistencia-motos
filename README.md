@@ -2,6 +2,36 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.1.
 
+## Environment Variables
+
+Before running the application, ensure that you have set the `API_URL` environment variables. This variable should point to the backend API endpoint.
+
+You need to generate this files by running:
+
+```bash
+ng generate environments
+```
+
+For example, if your API is running on `http://localhost:3000/api/v1`, set the environment variable for development and production as follows:
+
+```ts
+// src/environments/environment.development.ts
+export const environment = {
+  production: false,
+  API_URL: 'http://localhost:3000/api/v1',
+};
+```
+
+```ts
+// src/environments/environment.ts
+export const environment = {
+  production: true,
+  API_URL: 'http://localhost:3000/api/v1',
+};
+```
+
+Replace `http://localhost:3000/api/v1` with the actual URL of your backend API for your respective environment.
+
 ## Development server
 
 To start a local development server, run:
