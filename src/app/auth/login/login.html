@@ -4,28 +4,46 @@
       <mat-card-title>Login</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <mat-form-field>
-        <mat-label>Email</mat-label>
-        <input matInput />
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Enter your password</mat-label>
-        <input matInput [type]="hidePassword() ? 'password' : 'text'" />
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="correo" />
+          @if (loginForm.controls.correo.value === '') {
+            <mat-error>Email is Required</mat-error>
+          }
+          @if (loginForm.controls.correo.hasError('email')) {
+            <mat-error>Email is not valid</mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Enter your password</mat-label>
+          <input matInput formControlName="clave" [type]="hidePassword() ? 'password' : 'text'" />
+          @if (loginForm.controls.clave.invalid) {
+            <mat-error>Password is Required</mat-error>
+          }
+          <button
+            type="button"
+            matIconButton
+            matSuffix
+            (click)="togglePassword($event)"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hidePassword()"
+          >
+            <mat-icon>{{ hidePassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+        </mat-form-field>
         <button
-          matIconButton
-          matSuffix
-          (click)="togglePassword($event)"
-          [attr.aria-label]="'Hide password'"
-          [attr.aria-pressed]="hidePassword()"
+          id="login-button"
+          matFab
+          extended
+          [type]="loginForm.invalid ? 'button' : 'submit'"
+          color="primary"
         >
-          <mat-icon>{{ hidePassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+          <mat-icon>login</mat-icon>
+          Login
         </button>
-      </mat-form-field>
-      <button matFab extended color="primary">
-        <mat-icon>login</mat-icon>
-        Login
-      </button>
-      <p>Don't have an account? <a routerLink="/register">Register</a></p>
+        <p>Don't have an account? <a routerLink="/register">Register</a></p>
+      </form>
     </mat-card-content>
   </mat-card>
 </main>
