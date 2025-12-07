@@ -5,6 +5,10 @@ main {
   min-height: 100%;
 }
 
+#login-button {
+  width: 100%;
+}
+
 mat-card {
   max-width: 400px;
 }
@@ -21,4 +25,5 @@ mat-card-title {
 
 mat-form-field {
   width: 100%;
+  margin-bottom: 1em;
 }
