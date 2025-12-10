@@ -32,6 +32,9 @@
             <mat-icon>{{ hidePassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
           </button>
         </mat-form-field>
+        @if (errorMessage()) {
+          <mat-error>{{ errorMessage() }}</mat-error>
+        }
         <button
           id="login-button"
           matFab

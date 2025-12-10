@@ -6,8 +6,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AxiosResponse } from 'axios';
-import { Api } from '../../core/services/api';
+import { AuthService } from '../service';
 
 @Component({
   selector: 'app-login',
@@ -24,9 +23,10 @@ import { Api } from '../../core/services/api';
   styleUrl: './login.scss',
 })
 export class Login {
-  constructor(private apiService: Api) {}
+  constructor(private authService: AuthService) {}
 
   hidePassword = signal(true);
+  errorMessage = signal<string | null>(null);
 
   readonly loginForm = new FormGroup({
     correo: new FormControl('', [Validators.required, Validators.email]),
@@ -39,14 +39,14 @@ export class Login {
   }
 
   async onSubmit() {
-    const loginResponse: AxiosResponse = await this.apiService.post(
-      '/usuario/login',
-      this.loginForm.getRawValue(),
-    );
-
-    if (loginResponse.status === 200) {
-      console.log(loginResponse);
-      console.log('REDIRECT TO DASHBOARD');
+    try {
+      await this.authService.login(
+        this.loginForm.value.correo || '',
+        this.loginForm.value.clave || '',
+      );
+    } catch (error: any) {
+      this.errorMessage.set(error.response.data.message);
+      throw error;
     }
   }
 }

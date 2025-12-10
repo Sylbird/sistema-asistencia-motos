@@ -23,7 +23,6 @@ export class Api {
       const response = await this.axios.get(endpoint);
       return response.data;
     } catch (error) {
-      console.error(`GET ${endpoint} failed:`, error);
       throw error;
     }
   }
@@ -33,7 +32,6 @@ export class Api {
       const response = await this.axios.post(endpoint, data);
       return response.data;
     } catch (error) {
-      console.error(`POST ${endpoint} failed:`, error);
       throw error;
     }
   }
