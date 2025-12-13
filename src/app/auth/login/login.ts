@@ -47,7 +47,7 @@ export class Login {
         this.loginForm.value.clave || '',
       );
     } catch (error: any) {
-      this.errorMessage.set(error.response.data.message);
+      this.errorMessage.set(error.response?.data?.message ?? error);
       throw error;
     }
   }
