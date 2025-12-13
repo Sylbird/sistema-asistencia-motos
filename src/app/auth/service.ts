@@ -21,11 +21,20 @@ export class AuthService {
 
       if (loginResponse.status === 200) {
         // TODO: use a real token from the backend
-        // localStorage.setItem('UserData', JSON.stringify(loginResponse.data));
+        localStorage.setItem('UserData', JSON.stringify(loginResponse.data));
         this.router.navigate(['/dashboard']);
       }
     } catch (error) {
       throw error;
     }
+  }
+
+  isAuthenticated(): boolean {
+    return !!localStorage.getItem('UserData');
+  }
+
+  logout(): void {
+    localStorage.removeItem('UserData');
+    this.router.navigate(['/login']);
   }
 }
