@@ -1,25 +1,25 @@
 <main>
   <mat-card>
     <mat-card-header>
-      <mat-card-title>Login</mat-card-title>
+      <mat-card-title>Iniciar Sesión</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <mat-form-field>
-          <mat-label>Email</mat-label>
+          <mat-label>Correo</mat-label>
           <input matInput formControlName="correo" />
           @if (loginForm.controls.correo.value === '') {
-            <mat-error>Email is Required</mat-error>
+            <mat-error>Correo es requerido</mat-error>
           }
           @if (loginForm.controls.correo.hasError('email')) {
-            <mat-error>Email is not valid</mat-error>
+            <mat-error>Correo no es válido</mat-error>
           }
         </mat-form-field>
         <mat-form-field>
-          <mat-label>Enter your password</mat-label>
+          <mat-label>Contraseña</mat-label>
           <input matInput formControlName="clave" [type]="hidePassword() ? 'password' : 'text'" />
           @if (loginForm.controls.clave.invalid) {
-            <mat-error>Password is Required</mat-error>
+            <mat-error>Contraseña es requerida</mat-error>
           }
           <button
             type="button"
@@ -43,7 +43,7 @@
           color="primary"
         >
           <mat-icon>login</mat-icon>
-          Login
+          Iniciar Sesión
         </button>
         <p>No tienes una cuenta? <a routerLink="/sign-up">Regístrate aquí</a></p>
       </form>

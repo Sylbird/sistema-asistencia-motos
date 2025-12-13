@@ -2,27 +2,27 @@
   <!-- ==================== SIDEBAR ==================== -->
   <mat-sidenav #sidenav mode="side" opened class="sidenav">
     <div class="title">
-      <span>SIDENAV</span>
+      <span>Panel de Control</span>
     </div>
     <mat-nav-list class="body-items">
       <a mat-list-item routerLink="home">
         <mat-icon matListItemIcon>home</mat-icon>
-        <span mat-line>Dashboard</span>
+        <span mat-line>Inicio</span>
       </a>
       <a mat-list-item>
         <mat-icon matListItemIcon>calendar_month</mat-icon>
-        <span mat-line>Assistance</span>
+        <span mat-line>Asistencia</span>
       </a>
       <a mat-list-item>
         <mat-icon matListItemIcon>account_circle</mat-icon>
-        <span mat-line>Profile</span>
+        <span mat-line>Perfil</span>
       </a>
     </mat-nav-list>
     <mat-nav-list class="bottom-items">
       <mat-divider></mat-divider>
       <a mat-list-item (click)="onLogOut()">
         <mat-icon matListItemIcon>logout</mat-icon>
-        <span mat-line>Log Out</span>
+        <span mat-line>Cerrar Sesión</span>
       </a>
     </mat-nav-list>
   </mat-sidenav>
