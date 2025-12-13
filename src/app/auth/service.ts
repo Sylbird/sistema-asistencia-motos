@@ -29,6 +29,32 @@ export class AuthService {
     }
   }
 
+  async signUp(
+    nombre: string,
+    apellidoPaterno: string,
+    apellidoMaterno: string,
+    correo: string,
+    telefono: string,
+    clave: string,
+  ): Promise<void> {
+    try {
+      const signUpResponse: AxiosResponse = await this.apiService.post('/usuario/registro', {
+        nombre,
+        apellidoPaterno,
+        apellidoMaterno,
+        correo,
+        telefono,
+        clave,
+      });
+
+      if (signUpResponse.status === 200) {
+        this.router.navigate(['/login']);
+      }
+    } catch (error) {
+      throw error;
+    }
+  }
+
   isAuthenticated(): boolean {
     return !!localStorage.getItem('UserData');
   }

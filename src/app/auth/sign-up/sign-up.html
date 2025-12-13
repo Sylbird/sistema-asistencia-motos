@@ -1,0 +1,83 @@
+<main>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Sign Up</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+        <mat-form-field>
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="nombre" />
+          @if (signUpForm.controls.nombre.invalid) {
+            <mat-error>Name is Required</mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Dad Last Name</mat-label>
+          <input matInput formControlName="apellidoPaterno" />
+          @if (signUpForm.controls.apellidoPaterno.invalid) {
+            <mat-error>Last Name is Required</mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Mother Last Name</mat-label>
+          <input matInput formControlName="apellidoMaterno" />
+          @if (signUpForm.controls.apellidoMaterno.invalid) {
+            <mat-error>Last Name is Required</mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="correo" />
+          @if (signUpForm.controls.correo.value === '') {
+            <mat-error>Email is Required</mat-error>
+          }
+          @if (signUpForm.controls.correo.hasError('email')) {
+            <mat-error>Email is not valid</mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Phone Number</mat-label>
+          <input matInput formControlName="telefono" />
+          @if (signUpForm.controls.telefono.invalid) {
+            <mat-error>Phone Number is Required</mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Enter your password</mat-label>
+          <input matInput formControlName="clave" [type]="hidePassword() ? 'password' : 'text'" />
+          @if (signUpForm.controls.clave.hasError('required')) {
+            <mat-error>Password is Required</mat-error>
+          }
+          @if (signUpForm.controls.clave.hasError('minlength')) {
+            <mat-error>Password must be at least 6 characters</mat-error>
+          }
+          <button
+            type="button"
+            matIconButton
+            matSuffix
+            (click)="togglePassword($event)"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hidePassword()"
+          >
+            <mat-icon>{{ hidePassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+        </mat-form-field>
+        @if (errorMessage()) {
+          <mat-error>{{ errorMessage() }}</mat-error>
+        }
+        <button
+          id="signUpButton"
+          matFab
+          extended
+          [type]="signUpForm.invalid ? 'button' : 'submit'"
+          color="primary"
+        >
+          <mat-icon>person_add</mat-icon>
+          Sign Up
+        </button>
+        <p>Ya tienes una cuenta? <a routerLink="/login">Inicia sesión</a></p>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</main>
