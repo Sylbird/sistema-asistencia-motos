@@ -1,0 +1,46 @@
+<mat-sidenav-container class="dashboard">
+  <!-- ==================== SIDEBAR ==================== -->
+  <mat-sidenav #sidenav mode="side" opened class="sidenav">
+    <div class="title">
+      <span>SIDENAV</span>
+    </div>
+    <mat-nav-list class="body-items">
+      <mat-list-item>
+        <mat-icon matListItemIcon>home</mat-icon>
+        <span mat-line>Home</span>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon matListItemIcon>calendar_month</mat-icon>
+        <span mat-line>Assistance</span>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon matListItemIcon>account_circle</mat-icon>
+        <span mat-line>Profile</span>
+      </mat-list-item>
+    </mat-nav-list>
+
+    <mat-nav-list class="bottom-items">
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <mat-icon matListItemIcon>logout</mat-icon>
+        <span mat-line>Log Out</span>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <mat-sidenav-content class="content">
+    <main class="main-content">
+      <mat-card class="card">
+        <mat-card-header>
+          <mat-card-title>Welcome to the Dashboard</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>
+            This is the main content area. You can place your dashboard widgets or any other
+            relevant information here.
+          </p>
+        </mat-card-content>
+      </mat-card>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>
