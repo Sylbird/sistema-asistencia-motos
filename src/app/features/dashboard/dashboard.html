@@ -5,42 +5,31 @@
       <span>SIDENAV</span>
     </div>
     <mat-nav-list class="body-items">
-      <mat-list-item>
+      <a mat-list-item routerLink="home">
         <mat-icon matListItemIcon>home</mat-icon>
-        <span mat-line>Home</span>
-      </mat-list-item>
-      <mat-list-item>
+        <span mat-line>Dashboard</span>
+      </a>
+      <a mat-list-item>
         <mat-icon matListItemIcon>calendar_month</mat-icon>
         <span mat-line>Assistance</span>
-      </mat-list-item>
-      <mat-list-item>
+      </a>
+      <a mat-list-item>
         <mat-icon matListItemIcon>account_circle</mat-icon>
         <span mat-line>Profile</span>
-      </mat-list-item>
+      </a>
     </mat-nav-list>
-
     <mat-nav-list class="bottom-items">
       <mat-divider></mat-divider>
-      <mat-list-item (click)="onLogOut()">
+      <a mat-list-item (click)="onLogOut()">
         <mat-icon matListItemIcon>logout</mat-icon>
         <span mat-line>Log Out</span>
-      </mat-list-item>
+      </a>
     </mat-nav-list>
   </mat-sidenav>
   <!-- ==================== MAIN CONTENT ==================== -->
   <mat-sidenav-content class="content">
     <main class="main-content">
-      <mat-card class="card">
-        <mat-card-header>
-          <mat-card-title>Welcome to the Dashboard</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <p>
-            This is the main content area. You can place your dashboard widgets or any other
-            relevant information here.
-          </p>
-        </mat-card-content>
-      </mat-card>
+      <router-outlet></router-outlet>
     </main>
   </mat-sidenav-content>
 </mat-sidenav-container>

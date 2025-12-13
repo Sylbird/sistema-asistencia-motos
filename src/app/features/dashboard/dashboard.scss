@@ -27,19 +27,6 @@ mat-divider {
   margin: 8px 0;
 }
 
-.card {
-  max-width: 600px;
+.main-content {
   margin: 16px;
-  padding: 16px;
-
-  mat-card-title {
-    font-size: 24px;
-    font-weight: bold;
-  }
-  mat-card-content {
-    font-size: 16px;
-  }
-  mat-card-actions {
-    justify-content: flex-end;
-  }
 }

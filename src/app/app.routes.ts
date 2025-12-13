@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { Login } from './auth/login/login';
 import { Dashboard } from './features/dashboard/dashboard';
+import { Home } from './features/home/home';
 import { authGuard, publicGuard } from './auth/guard';
 import { SignUp } from './auth/sign-up/sign-up';
 
@@ -24,6 +25,17 @@ export const routes: Routes = [
     path: 'dashboard',
     component: Dashboard,
     canActivate: [authGuard],
+    children: [
+      {
+        path: '',
+        redirectTo: 'home',
+        pathMatch: 'full',
+      },
+      {
+        path: 'home',
+        component: Home,
+      },
+    ],
   },
   {
     path: '**',
