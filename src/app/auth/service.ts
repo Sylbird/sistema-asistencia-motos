@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AxiosResponse } from 'axios';
 import { Api } from '../core/services/api';
 import { Router } from '@angular/router';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root',
@@ -20,8 +21,9 @@ export class AuthService {
       });
 
       if (loginResponse.status === 200) {
-        // TODO: use a real token from the backend
-        localStorage.setItem('UserData', JSON.stringify(loginResponse.data));
+        // Set the token in local storage
+        localStorage.setItem('token', loginResponse.data.token);
+        localStorage.setItem('UserData', JSON.stringify(loginResponse.data.usuario));
         this.router.navigate(['/dashboard']);
       }
     } catch (error) {
@@ -56,10 +58,27 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
-    return !!localStorage.getItem('UserData');
+    const token = localStorage.getItem('token');
+    if (!token) return false;
+
+    try {
+      const decoded: any = jwtDecode(token);
+      const currentTime = Date.now() / 1000;
+
+      if (decoded.exp < currentTime) {
+        this.logout();
+        return false;
+      }
+
+      return true;
+    } catch (error) {
+      this.logout();
+      return false;
+    }
   }
 
   logout(): void {
+    localStorage.removeItem('token');
     localStorage.removeItem('UserData');
     this.router.navigate(['/login']);
   }
