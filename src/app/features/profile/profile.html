@@ -1,36 +1,124 @@
-@if (user()) {
+@if (user(); as userData) {
   <div class="profile-container">
     <mat-card class="profile-card">
       <mat-card-header>
         <div mat-card-avatar class="profile-header-image">
           <mat-icon>account_circle</mat-icon>
         </div>
-        <mat-card-title>{{ user()?.nombre }} {{ user()?.apellidoPaterno }}</mat-card-title>
-        <mat-card-subtitle>Perfil de Usuario</mat-card-subtitle>
+        <div class="header-text">
+          <mat-card-title>{{ userData.nombre }} {{ userData.apellidoPaterno }}</mat-card-title>
+          <mat-card-subtitle>Perfil de Usuario</mat-card-subtitle>
+        </div>
+        <div class="header-actions">
+          <button mat-icon-button (click)="toggleEditMode()" [disabled]="loading()">
+            <mat-icon>{{ isEditing() ? 'close' : 'edit' }}</mat-icon>
+          </button>
+        </div>
       </mat-card-header>
       <mat-card-content>
-        <mat-list>
-          <mat-list-item>
-            <mat-icon matListItemIcon>person</mat-icon>
-            <div matListItemTitle>Nombre Completo</div>
-            <div matListItemLine>
-              {{ user()?.nombre }} {{ user()?.apellidoPaterno }} {{ user()?.apellidoMaterno }}
+        @if (isEditing()) {
+          <form [formGroup]="profileForm" (ngSubmit)="saveProfile()" class="profile-form">
+            <div class="form-row">
+              <mat-form-field appearance="outline">
+                <mat-label>Nombre</mat-label>
+                <input matInput formControlName="nombre" placeholder="Nombre" />
+                @if (profileForm.get('nombre')?.hasError('required')) {
+                  <mat-error>Requerido</mat-error>
+                }
+              </mat-form-field>
             </div>
-          </mat-list-item>
-          <mat-divider></mat-divider>
-          <mat-list-item>
-            <mat-icon matListItemIcon>email</mat-icon>
-            <div matListItemTitle>Correo</div>
-            <div matListItemLine>{{ user()?.correo }}</div>
-          </mat-list-item>
-          <mat-divider></mat-divider>
-          <mat-list-item>
-            <mat-icon matListItemIcon>phone</mat-icon>
-            <div matListItemTitle>Telefono</div>
-            <div matListItemLine>{{ user()?.telefono }}</div>
-          </mat-list-item>
-        </mat-list>
+
+            <div class="form-row">
+              <mat-form-field appearance="outline">
+                <mat-label>Apellido Paterno</mat-label>
+                <input matInput formControlName="apellidoPaterno" placeholder="Apellido Paterno" />
+                @if (profileForm.get('apellidoPaterno')?.hasError('required')) {
+                  <mat-error>Requerido</mat-error>
+                }
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Apellido Materno</mat-label>
+                <input matInput formControlName="apellidoMaterno" placeholder="Apellido Materno" />
+                @if (profileForm.get('apellidoMaterno')?.hasError('required')) {
+                  <mat-error>Requerido</mat-error>
+                }
+              </mat-form-field>
+            </div>
+
+            <div class="form-row">
+              <mat-form-field appearance="outline">
+                <mat-label>Correo</mat-label>
+                <input
+                  matInput
+                  formControlName="correo"
+                  placeholder="Correo electrónico"
+                  type="email"
+                />
+                @if (profileForm.get('correo')?.hasError('required')) {
+                  <mat-error>Requerido</mat-error>
+                }
+                @if (profileForm.get('correo')?.hasError('email')) {
+                  <mat-error>Correo inválido!</mat-error>
+                }
+              </mat-form-field>
+            </div>
+
+            <div class="form-row">
+              <mat-form-field appearance="outline">
+                <mat-label>Teléfono</mat-label>
+                <input matInput formControlName="telefono" placeholder="Teléfono" type="tel" />
+                @if (profileForm.get('telefono')?.hasError('required')) {
+                  <mat-error>Requerido</mat-error>
+                }
+                @if (profileForm.get('telefono')?.hasError('pattern')) {
+                  <mat-error>Formato inválido! (ej. 999888777)</mat-error>
+                }
+              </mat-form-field>
+            </div>
+
+            <div class="form-actions">
+              <button mat-button type="button" (click)="toggleEditMode()" [disabled]="loading()">
+                Cancelar
+              </button>
+              <button
+                mat-raised-button
+                color="primary"
+                type="submit"
+                [disabled]="loading() || profileForm.invalid"
+              >
+                {{ loading() ? 'Guardando...' : 'Guardar Cambios' }}
+              </button>
+            </div>
+          </form>
+        } @else {
+          <mat-list>
+            <mat-list-item>
+              <mat-icon matListItemIcon>person</mat-icon>
+              <div matListItemTitle>Nombre Completo</div>
+              <div matListItemLine>
+                {{ userData.nombre }} {{ userData.apellidoPaterno }} {{ userData.apellidoMaterno }}
+              </div>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item>
+              <mat-icon matListItemIcon>email</mat-icon>
+              <div matListItemTitle>Correo</div>
+              <div matListItemLine>{{ userData.correo }}</div>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item>
+              <mat-icon matListItemIcon>phone</mat-icon>
+              <div matListItemTitle>Teléfono</div>
+              <div matListItemLine>{{ userData.telefono }}</div>
+            </mat-list-item>
+          </mat-list>
+        }
       </mat-card-content>
     </mat-card>
+  </div>
+} @else {
+  <div class="no-data">
+    <p>No se encontraron datos de usuario. Por favor, vuelva a iniciar sesión.</p>
   </div>
 }

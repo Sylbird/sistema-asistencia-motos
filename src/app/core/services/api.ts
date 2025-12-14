@@ -35,4 +35,13 @@ export class Api {
       throw error;
     }
   }
+
+  async patch<T>(endpoint: string, data: Record<string, any>): Promise<T> {
+    try {
+      const response = await this.axios.patch(endpoint, data);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
