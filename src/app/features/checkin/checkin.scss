@@ -1,0 +1,124 @@
+.checkin-container {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.checkin-card {
+  max-width: 500px;
+  width: 100%;
+}
+
+.checkin-header-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e3f2fd;
+  border-radius: 50%;
+
+  mat-icon {
+    color: hsl(210, 80%, 45%);
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-top: 16px;
+}
+
+.action-area {
+  display: flex;
+  justify-content: center;
+}
+
+.checkin-button {
+  width: 100%;
+  padding: 8px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  mat-icon {
+    margin-right: 8px;
+  }
+  .loading-icon {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.location-result {
+  border-radius: 8px;
+  padding: 16px;
+  animation: fadeIn 0.3s ease-in;
+}
+
+.success {
+  background-color: #f1f8e9;
+  border: 1px solid #c5e1a5;
+}
+
+.error {
+  background-color: #ffebee;
+  border: 1px solid #ef9a9a;
+  color: #c62828;
+}
+
+.result-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+
+  mat-icon {
+    font-size: 24px;
+  }
+
+  h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+}
+
+.location-details {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.1);
+  padding-bottom: 4px;
+
+  .label {
+    font-weight: 500;
+    color: #555;
+  }
+
+  .value {
+    font-family: monospace;
+    font-size: 1.1em;
+  }
+}
+
+.map-link {
+  margin-top: 16px;
+  width: 100%;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

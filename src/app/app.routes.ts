@@ -5,6 +5,7 @@ import { Home } from './features/home/home';
 import { authGuard, publicGuard } from './auth/guard';
 import { SignUp } from './auth/sign-up/sign-up';
 import { Profile } from './features/profile/profile';
+import { Checkin } from './features/checkin/checkin';
 
 export const routes: Routes = [
   {
@@ -35,6 +36,10 @@ export const routes: Routes = [
       {
         path: 'home',
         component: Home,
+      },
+      {
+        path: 'checkin',
+        component: Checkin,
       },
       {
         path: 'profile',
