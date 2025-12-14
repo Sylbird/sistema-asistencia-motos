@@ -57,6 +57,16 @@ export class AuthService {
     }
   }
 
+  async requestPasswordRecovery(correo: string): Promise<void> {
+    try {
+      await this.apiService.post('/reseteo-clave/solicitud-recuperacion', {
+        correo,
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
+
   isAuthenticated(): boolean {
     const token = localStorage.getItem('token');
     if (!token) return false;
