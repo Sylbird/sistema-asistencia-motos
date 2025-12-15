@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../service';
 import { RouterLink } from '@angular/router';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
   selector: 'app-login',
@@ -16,6 +17,7 @@ import { RouterLink } from '@angular/router';
     MatInputModule,
     MatSelectModule,
     MatCardModule,
+    MatDividerModule,
     MatIconModule,
     MatButtonModule,
     ReactiveFormsModule,
