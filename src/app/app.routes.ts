@@ -7,6 +7,7 @@ import { SignUp } from './auth/sign-up/sign-up';
 import { Profile } from './features/profile/profile';
 import { Checkin } from './features/checkin/checkin';
 import { ResetPassword } from './auth/reset-password/reset-password';
+import { NewPassword } from './auth/reset-password/new-password/new-password';
 
 export const routes: Routes = [
   {
@@ -27,6 +28,11 @@ export const routes: Routes = [
   {
     path: 'reset-password',
     component: ResetPassword,
+    canActivate: [publicGuard],
+  },
+  {
+    path: 'new-password/:idReseteoClave',
+    component: NewPassword,
     canActivate: [publicGuard],
   },
   {

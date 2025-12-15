@@ -67,6 +67,28 @@ export class AuthService {
     }
   }
 
+  async validateRecoveryToken(token: string): Promise<void> {
+    try {
+      const response: AxiosResponse = await this.apiService.get(
+        `/reseteo-clave/validacion/${token}`,
+      );
+      return response.data.success;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async changePassword(token: string, clave: string, confirmarClave: string): Promise<void> {
+    try {
+      await this.apiService.patch(`/reseteo-clave/cambio-clave/${token}`, {
+        clave,
+        confirmarClave,
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
+
   isAuthenticated(): boolean {
     const token = localStorage.getItem('token');
     if (!token) return false;
