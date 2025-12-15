@@ -72,4 +72,13 @@ export class Api {
       throw error;
     }
   }
+
+  async put<T>(endpoint: string, data: Record<string, any>): Promise<T> {
+    try {
+      const response = await this.axios.put(endpoint, data);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
 }

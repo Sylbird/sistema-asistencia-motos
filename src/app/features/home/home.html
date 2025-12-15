@@ -1,8 +1,54 @@
-<mat-card class="home-card">
-  <mat-card-header>
-    <mat-card-title>Bienvenido al Panel de Control</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <p>Hola, Usuario!</p>
-  </mat-card-content>
-</mat-card>
+<div class="home-container">
+  <!-- Assigned Moto Card -->
+  <mat-card class="home-card">
+    <mat-card-header>
+      <mat-card-title>Moto Asignada</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      @if (myMoto()) {
+        <div class="moto-info">
+          <p><strong>Número de Moto:</strong> {{ myMoto()?.numeroMoto }}</p>
+          <p>
+            <strong>Estado:</strong>
+            <span class="status-badge" [class.active]="myMoto()?.estado === 'activo'">{{
+              myMoto()?.estado
+            }}</span>
+          </p>
+        </div>
+      } @else {
+        <p class="no-moto-text">No tienes una moto asignada, escoge una</p>
+      }
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Select Moto Card -->
+  <mat-card class="home-card" [class.disabled-card]="myMoto()">
+    <mat-card-header>
+      <mat-card-title>Escoge tu moto</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="select-container">
+        <mat-form-field appearance="outline">
+          <mat-label>Selecciona una moto</mat-label>
+          <mat-select [formControl]="selectedMotoControl">
+            @for (moto of availableMotos(); track moto.idMoto) {
+              <mat-option [value]="moto.numeroMoto"> Moto #{{ moto.numeroMoto }} </mat-option>
+            }
+          </mat-select>
+          @if (selectedMotoControl.hasError('required')) {
+            <mat-error>Debes seleccionar una moto</mat-error>
+          }
+        </mat-form-field>
+
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="assignMoto()"
+          [disabled]="myMoto() || selectedMotoControl.invalid || isLoading()"
+        >
+          {{ isLoading() ? 'Procesando...' : 'Asignar Moto' }}
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
