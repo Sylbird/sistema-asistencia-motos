@@ -5,6 +5,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../service';
@@ -18,6 +19,7 @@ import { AuthService } from '../service';
     MatCardModule,
     MatIconModule,
     MatButtonModule,
+    MatDividerModule,
     ReactiveFormsModule,
     RouterLink,
   ],

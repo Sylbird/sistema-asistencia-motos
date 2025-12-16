@@ -69,18 +69,21 @@
         @if (errorMessage()) {
           <mat-error>{{ errorMessage() }}</mat-error>
         }
-        <button
-          id="signUpButton"
-          matFab
-          extended
-          [type]="signUpForm.invalid ? 'button' : 'submit'"
-          color="primary"
-        >
-          <mat-icon>person_add</mat-icon>
-          Registrarse
-        </button>
-        <p>Ya tienes una cuenta? <a routerLink="/login">Inicia sesión</a></p>
-      </form>
+      <button
+            id="signUpButton"
+            matFab
+            extended
+            [type]="signUpForm.invalid ? 'button' : 'submit'"
+            color="primary"
+          >
+            <mat-icon>person_add</mat-icon>
+            Registrarse
+          </button>
+          
+          <mat-divider></mat-divider>
+          
+          <p>¿Ya tienes una cuenta? <a routerLink="/login">Inicia sesión aquí</a></p>
+        </form>
     </mat-card-content>
   </mat-card>
 </main>

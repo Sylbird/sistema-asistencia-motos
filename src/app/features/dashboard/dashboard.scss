@@ -1,38 +1,156 @@
+
 .dashboard {
-  height: 100%;
+  height: 100vh;
+  background-color: var(--bg-color);
 }
 
 .sidenav {
-  background-color: var(--mat-sys-primary-container);
-  max-width: 240px;
+  width: var(--sidebar-width);
+  background: white;
+  border-right: none;
+  box-shadow: 2px 0 12px rgba(0,0,0,0.05);
 
   .title {
-    text-align: center;
-    padding: 16px;
-    font-size: 24px;
-    font-weight: bold;
+    padding: 32px 24px;
+    
+    span {
+      font-family: var(--font-main);
+      font-size: 1.5rem;
+      font-weight: 800;
+      background: var(--primary-gradient);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
+    }
   }
 
   .body-items {
-    a {
-      margin: 5px 0;
+    padding: 0 16px;
+    
+    a.mat-mdc-list-item {
+      border-radius: 12px;
+      margin-bottom: 8px;
+      color: var(--text-muted);
+      transition: all 0.2s ease;
+      
+      &:hover {
+        background-color: #f0f9ff; // Light Sky
+        color: var(--primary-color);
+        transform: translateX(4px);
+      }
+      
+      &.active, &[aria-current="page"] {
+        background-color: #dbeafe; // Blue 100
+        color: var(--primary-color);
+        font-weight: 600;
+        
+        mat-icon {
+          color: var(--primary-color);
+        }
+      }
+      
+      mat-icon {
+        margin-right: 12px;
+        color: #94a3b8;
+        transition: color 0.2s;
+      }
     }
+  }
+  
+  .bottom-items {
+      padding: 0 16px;
+      margin-top: auto;
+      
+      a.mat-mdc-list-item {
+          border-radius: 12px;
+          color: #ef4444; // Red for logout
+          
+          &:hover {
+              background-color: #fee2e2;
+          }
+      }
   }
 }
 
-@media screen and (max-width: 768px) {
+// Responsive adjustments
+// Responsive adjustments
+@media screen and (max-width: 960px) {
   .sidenav {
-    max-width: 56px;
+    width: 84px !important; // Fixed width for mobile
+    min-width: 84px;
+    padding-top: 24px;
+
     .title {
-      display: none;
+      display: none !important;
+    }
+    
+    // Target both nav lists
+    .body-items, .bottom-items {
+        padding: 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        
+        a.mat-mdc-list-item {
+            width: 56px !important;
+            height: 56px !important;
+            min-height: 56px !important;
+            border-radius: 16px;
+            margin: 8px 0;
+            padding: 0 !important;
+            
+            // Force flex centering of the remaining content (the icon)
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            
+            // Hide the text content container entirely to remove spacing issues
+            .mdc-list-item__content {
+                display: none !important;
+            }
+
+            // Target the icon container specifically
+            .mdc-list-item__start,
+            .mat-mdc-list-item-icon {
+                margin: 0 !important;
+                padding: 0 !important;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            // Verify icon sizing
+            mat-icon {
+                margin: 0 !important;
+                font-size: 26px !important;
+                width: 26px !important;
+                height: 26px !important;
+                transform: none !important; // Ensure no transform on the icon itself
+            }
+
+            // Disable hover slide effect on mobile (Host level)
+            &:hover {
+                transform: none !important;
+            }
+        }
+    }
+    
+    // Adjust bottom items specifically if needed
+    .bottom-items {
+        margin-bottom: 24px;
     }
   }
-}
-
-mat-divider {
-  margin: 8px 0;
 }
 
 .main-content {
-  margin: 16px;
+  padding: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+mat-divider {
+  margin: 16px 0;
+  border-top-color: #e2e8f0;
 }

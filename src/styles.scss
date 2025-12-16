@@ -1,46 +1,104 @@
-// Include theming for Angular Material with `mat.theme()`.
-// This Sass mixin will define CSS variables that are used for styling Angular Material
-// components according to the Material 3 design spec.
-// Learn more about theming and how to use it for your application's
-// custom components at https://material.angular.dev/guide/theming
+
 @use '@angular/material' as mat;
 
+// Import Outfit Font
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&display=swap');
+
+
+// Define custom properties
+:root {
+  --font-main: 'Outfit', sans-serif;
+  
+  // Blue Gradient Palette
+  --primary-color: #3b82f6; /* Blue 500 */
+  --primary-dark: #1d4ed8;  /* Blue 700 */
+  --secondary-color: #0ea5e9; /* Sky 500 */
+  
+  --primary-gradient: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);
+  --primary-gradient-hover: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+  
+  --bg-color: #f0f9ff;
+  --glass-bg: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.6);
+  --glass-shadow: 0 8px 32px 0 rgba(59, 130, 246, 0.15);
+  
+  --text-main: #020617; /* Slate 950 - Darker/Sharper */
+  --text-muted: #475569; /* Slate 600 - Darker for better visibility */
+  
+  --sidebar-width: 260px;
+}
+
 html {
-  @include mat.theme(
-    (
-      color: (
-        primary: mat.$azure-palette,
-        tertiary: mat.$blue-palette,
-      ),
-      typography: Roboto,
-      density: 0,
-    )
-  );
+  // Use available palettes to pass build (Azure/Blue), then override variables below
+  @include mat.theme((
+    color: (
+      primary: mat.$azure-palette,
+      tertiary: mat.$blue-palette,
+    ),
+    typography: Roboto, 
+    density: 0,
+  ));
+
+  // Override Material System Tokens to Blue Identity
+  --mat-sys-primary: #3b82f6;
+  --mat-sys-on-primary: #ffffff;
+  --mat-sys-primary-container: #dbeafe;
+  --mat-sys-on-primary-container: #1e3a8a;
+
+  --mat-sys-tertiary: #0ea5e9;
+  --mat-sys-on-tertiary: #ffffff;
+  --mat-sys-tertiary-container: #e0f2fe;
+  --mat-sys-on-tertiary-container: #075985;
 }
 
-body {
-  // Default the application to a light color theme. This can be changed to
-  // `dark` to enable the dark color theme, or to `light dark` to defer to the
-  // user's system settings.
-  color-scheme: light;
-
-  // Set a default background, font and text colors for the application using
-  // Angular Material's system-level CSS variables. Learn more about these
-  // variables at https://material.angular.dev/guide/system-variables
-  background-color: var(--mat-sys-surface);
-  color: var(--mat-sys-on-surface);
-  font: var(--mat-sys-body-medium);
-
-  // Reset the user agent margin.
-  margin: 0;
-}
-/* You can add global styles to this file, and also import other style files */
-
-html,
-body {
-  height: 100%;
-}
 body {
   margin: 0;
-  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  font-family: var(--font-main);
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  height: 100vh;
+  overflow: hidden; /* App-like feel */
+}
+
+/* Global Material Overrides for Modern Look */
+.mat-mdc-card {
+  border-radius: 16px !important;
+  box-shadow: var(--glass-shadow) !important;
+  background-color: white; 
+}
+
+.mat-mdc-form-field {
+  .mat-mdc-text-field-wrapper {
+    background-color: #f1f5f9 !important; /* Slate 100 */
+    border-radius: 12px !important;
+  }
+  .mat-mdc-form-field-focus-overlay {
+    background-color: transparent !important;
+  }
+}
+
+.mat-mdc-button, .mat-mdc-raised-button, .mat-mdc-unelevated-button, .mat-mdc-fab, .mat-mdc-extended-fab {
+  border-radius: 20px !important;
+  font-family: var(--font-main) !important;
+  letter-spacing: 0.5px;
+  
+  &.mat-primary, &.mat-accent, &.mat-warn {
+      color: white !important;
+  }
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent; 
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1; 
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8; 
 }

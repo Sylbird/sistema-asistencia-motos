@@ -1,23 +1,52 @@
+
 .checkin-container {
   display: flex;
   justify-content: center;
   padding: 2rem;
+  height: 100%;
 }
 
 .checkin-card {
   max-width: 500px;
   width: 100%;
+  border-radius: 24px;
+  box-shadow: var(--glass-shadow);
+  overflow: visible;
+  margin-top: 2rem;
+}
+
+mat-card-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 2rem;
+  margin-top: -3rem; // overlap effect
+
+  mat-card-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-top: 1rem;
+    color: var(--primary-dark);
+  }
 }
 
 .checkin-header-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #e3f2fd;
+  width: 80px;
+  height: 80px;
+  background: var(--primary-gradient);
   border-radius: 50%;
+  box-shadow: 0 8px 16px rgba(59, 130, 246, 0.4);
+  border: 4px solid white;
 
   mat-icon {
-    color: hsl(210, 80%, 45%);
+    font-size: 40px;
+    width: 40px;
+    height: 40px;
+    color: white;
   }
 }
 
@@ -25,7 +54,7 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
-  padding-top: 16px;
+  padding: 0 2rem 2rem 2rem;
 }
 
 .action-area {
@@ -35,87 +64,122 @@
 
 .checkin-button {
   width: 100%;
-  padding: 8px 0;
+  height: 56px;
+  font-size: 1.1rem;
+  border-radius: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 12px;
+  background: var(--primary-gradient);
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+  transition: transform 0.2s, box-shadow 0.2s;
+
+  &:hover:not([disabled]) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(59, 130, 246, 0.5);
+      background: var(--primary-gradient-hover);
+  }
 
   mat-icon {
-    margin-right: 8px;
+    margin-right: 0;
   }
   .loading-icon {
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
   }
 }
 
 .location-result {
-  border-radius: 8px;
-  padding: 16px;
-  animation: fadeIn 0.3s ease-in;
+  border-radius: 16px;
+  padding: 1.5rem;
+  animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .success {
-  background-color: #f1f8e9;
-  border: 1px solid #c5e1a5;
+  background-color: #f0fdf4; /* Green 50 */
+  border: 1px solid #bbf7d0;
+  
+  .result-header h3 { color: #15803d; }
+  .result-header mat-icon { color: #22c55e; }
 }
 
 .error {
-  background-color: #ffebee;
-  border: 1px solid #ef9a9a;
-  color: #c62828;
+  background-color: #fef2f2; /* Red 50 */
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+  
+  .result-header mat-icon { color: #ef4444; }
 }
 
 .result-header {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 16px;
+  gap: 12px;
+  margin-bottom: 1rem;
+  font-weight: 700;
 
   mat-icon {
-    font-size: 24px;
+    font-size: 28px;
+    width: 28px;
+    height: 28px;
   }
 
   h3 {
     margin: 0;
-    font-size: 1.1rem;
-    font-weight: 500;
+    font-size: 1.2rem;
   }
 }
 
 .location-details {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 0.8rem;
+  background: rgba(255,255,255,0.6);
+  padding: 1rem;
+  border-radius: 12px;
 }
 
 .detail-item {
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px dashed rgba(0, 0, 0, 0.1);
-  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  padding-bottom: 8px;
+  
+  &:last-child {
+      border-bottom: none;
+  }
 
   .label {
-    font-weight: 500;
-    color: #555;
+    font-weight: 600;
+    color: var(--text-muted);
   }
 
   .value {
-    font-family: monospace;
-    font-size: 1.1em;
+    font-family: 'Courier New', monospace;
+    font-weight: 600;
+    color: var(--primary-dark);
   }
 }
 
 .map-link {
-  margin-top: 16px;
+  margin-top: 1rem;
   width: 100%;
+  border-radius: 12px;
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color) !important; // Override global white text
+  font-weight: 700;
+  
+  &:hover {
+      background: var(--primary-color);
+      color: white !important;
+  }
 }
 
-@keyframes fadeIn {
+@keyframes slideUp {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
