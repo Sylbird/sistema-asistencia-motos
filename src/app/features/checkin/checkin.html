@@ -5,24 +5,57 @@
         <mat-icon>location_on</mat-icon>
       </div>
       <mat-card-title>Marcar Asistencia</mat-card-title>
-      <mat-card-subtitle>Registra tu ubicación actual</mat-card-subtitle>
+      <mat-card-subtitle>
+        @if (moto(); as m) {
+          Moto #{{ m.numeroMoto }}
+        } @else {
+          Cargando info moto...
+        }
+      </mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content class="content">
+      <div class="form-section">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Selecciona Paradero</mat-label>
+          <mat-select
+            [ngModel]="selectedParaderoId()"
+            (ngModelChange)="selectedParaderoId.set($event); updateSelectedParadero()"
+          >
+            @for (p of paraderos(); track p.id) {
+              <mat-option [value]="p.id">{{ p.nombre }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      @if (selectedParadero(); as selectedP) {
+        <div class="paradero-info">
+          <div class="detail-item">
+            <mat-icon class="small-icon">place</mat-icon>
+            <span>{{ selectedP.direccion }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Coords:</span>
+            <span class="value">{{ selectedP.lat }}, {{ selectedP.lng }}</span>
+          </div>
+        </div>
+      }
+
       <div class="action-area">
         <button
-          mat-raised-button
+          mat-stroked-button
           color="primary"
           class="checkin-button"
           (click)="getLocation()"
           [disabled]="loading()"
         >
-          @if (loading()) {
+          @if (loading() && !location()) {
             <mat-icon class="loading-icon"><mat-spinner diameter="20"></mat-spinner></mat-icon>
           } @else {
             <mat-icon>my_location</mat-icon>
           }
-          {{ loading() ? 'Obteniendo ubicación...' : 'Obtener Ubicación' }}
+          {{ location() ? 'Actualizar Ubicación' : 'Obtener Ubicación' }}
         </button>
       </div>
 
@@ -30,50 +63,48 @@
         <div class="location-result success">
           <div class="result-header">
             <mat-icon>check_circle</mat-icon>
-            <h3>Ubicación Obtenida</h3>
+            <h3>Ubicación Actual</h3>
           </div>
 
           <div class="location-details">
             <div class="detail-item">
-              <span class="label">Latitud:</span>
+              <span class="label">Lat:</span>
               <span class="value">{{ loc.lat | number: '1.4-6' }}</span>
             </div>
             <div class="detail-item">
-              <span class="label">Longitud:</span>
+              <span class="label">Lng:</span>
               <span class="value">{{ loc.lng | number: '1.4-6' }}</span>
             </div>
             <div class="detail-item">
               <span class="label">Precisión:</span>
               <span class="value">±{{ loc.accuracy }} m</span>
             </div>
-            <div class="detail-item">
-              <span class="label">Hora:</span>
-              <span class="value">{{ loc.timestamp | date: 'mediumTime' }}</span>
-            </div>
           </div>
-
-          <a
-            mat-button
-            color="accent"
-            [href]="'https://www.google.com/maps?q=' + loc.lat + ',' + loc.lng"
-            target="_blank"
-            class="map-link"
-          >
-            <mat-icon>map</mat-icon>
-            Ver en Mapa
-          </a>
         </div>
       }
 
       @if (locationError()) {
         <div class="location-result error">
-          <div class="result-header">
-            <mat-icon>error_outline</mat-icon>
-            <h3>Error</h3>
-          </div>
+          <mat-icon>error_outline</mat-icon>
           <p>{{ locationError() }}</p>
         </div>
       }
+
+      <div class="submit-area">
+        <button
+          mat-raised-button
+          color="primary"
+          class="submit-button"
+          (click)="marcarAsistencia()"
+          [disabled]="loading() || !location() || !selectedParaderoId()"
+        >
+          @if (loading() && location()) {
+            <mat-spinner diameter="20"></mat-spinner>
+          } @else {
+            MARCAR ASISTENCIA
+          }
+        </button>
+      </div>
     </mat-card-content>
   </mat-card>
 </div>
