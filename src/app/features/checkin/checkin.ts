@@ -7,6 +7,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTableModule } from '@angular/material/table';
 import { FormsModule } from '@angular/forms';
 import { Api } from '../../core/services/api';
 
@@ -21,6 +22,7 @@ import { Api } from '../../core/services/api';
     MatSelectModule,
     MatFormFieldModule,
     MatSnackBarModule,
+    MatTableModule,
     FormsModule,
   ],
   templateUrl: './checkin.html',
@@ -33,6 +35,7 @@ export class Checkin {
   paraderos = signal<Paradero[]>([]);
   selectedParaderoId = signal<number | null>(null);
   moto = signal<Moto | null>(null);
+  asistencias = signal<Asistencia[]>([]);
 
   // Computed: selected paradero
   selectedParadero = signal<Paradero | undefined>(undefined);
@@ -57,6 +60,10 @@ export class Checkin {
     this.loading.set(true);
     try {
       await Promise.all([this.loadParaderos(), this.loadMoto()]);
+      // Load asistencias after moto is loaded
+      if (this.moto()) {
+        await this.loadAsistencias();
+      }
     } catch (error) {
       console.error('Error loading initial data', error);
       this.snackBar.open('Error cargando datos iniciales', 'Cerrar', { duration: 3000 });
@@ -178,6 +185,8 @@ export class Checkin {
         duration: 3000,
         panelClass: 'success-snackbar',
       });
+      // Reload asistencias after successful marking
+      await this.loadAsistencias();
     } catch (error) {
       console.error('Error marking attendance', error);
       this.snackBar.open('Error al marcar asistencia', 'Cerrar', {
@@ -186,6 +195,23 @@ export class Checkin {
       });
     } finally {
       this.loading.set(false);
+    }
+  }
+
+  async loadAsistencias() {
+    const moto = this.moto();
+    if (!moto) return;
+
+    try {
+      const response = await this.api.post<{ success: boolean; data: Asistencia[] }>(
+        '/asistencia/obtener-por-moto',
+        { numeroMoto: moto.numeroMoto },
+      );
+      if (response.success) {
+        this.asistencias.set(response.data);
+      }
+    } catch (error) {
+      console.error('Error fetching asistencias', error);
     }
   }
 }
@@ -208,4 +234,13 @@ interface Moto {
   estadoAuditoria: number;
   fechaCreacion: string;
   fechaModificacion: string;
+}
+
+interface Asistencia {
+  id: number;
+  numeroMoto: number;
+  direccionParadero: string;
+  lat: string;
+  lng: string;
+  creadoEn: string;
 }

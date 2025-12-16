@@ -107,4 +107,73 @@
       </div>
     </mat-card-content>
   </mat-card>
+
+  <!-- Assistencias History Card -->
+  <mat-card class="asistencias-card">
+    <mat-card-header>
+      <div mat-card-avatar class="asistencias-header-icon">
+        <mat-icon>history</mat-icon>
+      </div>
+      <mat-card-title>Historial de Asistencias</mat-card-title>
+      <mat-card-subtitle>
+        @if (asistencias().length > 0) {
+          {{ asistencias().length }} registro{{ asistencias().length !== 1 ? 's' : '' }}
+        } @else {
+          Sin registros
+        }
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content class="asistencias-content">
+      @if (asistencias().length === 0) {
+        <div class="empty-state">
+          <mat-icon class="empty-icon">inbox</mat-icon>
+          <p class="empty-text">Aún no has marcado asistencias</p>
+        </div>
+      } @else {
+        <div class="table-container">
+          <table mat-table [dataSource]="asistencias()" class="asistencias-table">
+            <!-- Paradero Column -->
+            <ng-container matColumnDef="paradero">
+              <th mat-header-cell *matHeaderCellDef>Paradero</th>
+              <td mat-cell *matCellDef="let asistencia">
+                <div class="paradero-cell">
+                  <mat-icon class="cell-icon">place</mat-icon>
+                  <span>{{ asistencia.direccionParadero }}</span>
+                </div>
+              </td>
+            </ng-container>
+
+            <!-- Fecha Column -->
+            <ng-container matColumnDef="fecha">
+              <th mat-header-cell *matHeaderCellDef>Fecha</th>
+              <td mat-cell *matCellDef="let asistencia">
+                <div class="fecha-cell">
+                  <mat-icon class="cell-icon">event</mat-icon>
+                  <span>{{ asistencia.creadoEn | date: 'dd/MM/yyyy HH:mm' }}</span>
+                </div>
+              </td>
+            </ng-container>
+
+            <!-- Coordenadas Column -->
+            <ng-container matColumnDef="coordenadas">
+              <th mat-header-cell *matHeaderCellDef>Coordenadas</th>
+              <td mat-cell *matCellDef="let asistencia">
+                <div class="coords-cell">
+                  <mat-icon class="cell-icon">my_location</mat-icon>
+                  <span class="coords-text"
+                    >{{ asistencia.lat | number: '1.4-4' }},
+                    {{ asistencia.lng | number: '1.4-4' }}</span
+                  >
+                </div>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="['paradero', 'fecha', 'coordenadas']"></tr>
+            <tr mat-row *matRowDef="let row; columns: ['paradero', 'fecha', 'coordenadas']"></tr>
+          </table>
+        </div>
+      }
+    </mat-card-content>
+  </mat-card>
 </div>
