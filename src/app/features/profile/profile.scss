@@ -1,8 +1,6 @@
-
 .profile-container {
   display: flex;
   justify-content: center;
-  padding: 2rem;
   height: 100%;
 }
 
@@ -44,26 +42,28 @@ mat-card-header {
 
   .header-text {
     flex: 1;
-    
+
     mat-card-title {
-        font-size: 1.8rem;
-        font-weight: 800;
-        color: var(--primary-dark);
-        margin-bottom: 4px;
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      margin-bottom: 4px;
     }
-    
+
     mat-card-subtitle {
-        font-size: 1rem;
-        color: var(--text-muted);
+      font-size: 1rem;
+      color: var(--text-muted);
     }
   }
 
   .header-actions {
     margin-left: auto;
-    
+
     button {
-        color: var(--text-muted);
-        &:hover { color: var(--primary-color); }
+      color: var(--text-muted);
+      &:hover {
+        color: var(--primary-color);
+      }
     }
   }
 }
@@ -90,56 +90,56 @@ mat-card-header {
   justify-content: flex-end;
   gap: 12px;
   margin-top: 24px;
-  
-  button[type="submit"] {
-      background: var(--primary-gradient);
-      color: white;
-      padding: 0 24px;
-      
-      &:hover {
-          background: var(--primary-gradient-hover);
-      }
+
+  button[type='submit'] {
+    background: var(--primary-gradient);
+    color: white;
+    padding: 0 24px;
+
+    &:hover {
+      background: var(--primary-gradient-hover);
+    }
   }
 }
 
 mat-list {
-    padding-top: 0;
+  padding-top: 0;
 }
 
 mat-list-item {
-    height: auto !important;
-    margin-bottom: 12px;
-    border-radius: 12px;
-    
-    &:hover {
-        background-color: #f8fafc;
-    }
-    
-    mat-icon {
-        color: var(--primary-color);
-        background: #e0e7ff;
-        padding: 8px;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-right: 16px;
-    }
-    
-    [matListItemTitle] {
-        font-weight: 600;
-        font-size: 0.9rem;
-        color: var(--text-muted);
-    }
-    
-    [matListItemLine] {
-        font-size: 1.1rem !important;
-        color: var(--text-main) !important;
-        font-weight: 500;
-        margin-top: 4px;
-    }
+  height: auto !important;
+  margin-bottom: 12px;
+  border-radius: 12px;
+
+  &:hover {
+    background-color: #f8fafc;
+  }
+
+  mat-icon {
+    color: var(--primary-color);
+    background: #e0e7ff;
+    padding: 8px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 16px;
+  }
+
+  [matListItemTitle] {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+
+  [matListItemLine] {
+    font-size: 1.1rem !important;
+    color: var(--text-main) !important;
+    font-weight: 500;
+    margin-top: 4px;
+  }
 }
 
 .no-data {
@@ -163,24 +163,20 @@ mat-divider {
     gap: 0;
   }
 
-  .profile-container {
-    padding: 1rem;
-  }
-  
   mat-card-header {
-      flex-direction: column;
-      text-align: center;
-      gap: 1rem;
-      
-      .profile-header-image {
-          margin-right: 0;
-          margin-bottom: 8px;
-      }
-      
-      .header-actions {
-          position: absolute;
-          top: 12px;
-          right: 12px;
-      }
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+
+    .profile-header-image {
+      margin-right: 0;
+      margin-bottom: 8px;
+    }
+
+    .header-actions {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+    }
   }
 }

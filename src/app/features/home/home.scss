@@ -1,9 +1,7 @@
-
 .home-container {
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  padding: 2rem;
   max-width: 900px;
   margin: 0 auto;
   animation: fadeIn 0.5s ease-out;
@@ -14,18 +12,20 @@
   border-radius: 20px;
   border: none;
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+
   &:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 24px rgba(0,0,0,0.1) !important;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1) !important;
   }
 }
 
 mat-card-header {
   margin-bottom: 1.5rem;
   padding: 1.5rem 1.5rem 0.5rem 1.5rem;
-  
+
   mat-card-title {
     font-size: 1.5rem;
     font-weight: 700;
@@ -34,7 +34,7 @@ mat-card-header {
 }
 
 mat-card-content {
-    padding: 0 1.5rem 2rem 1.5rem;
+  padding: 0 1.5rem 2rem 1.5rem;
 }
 
 .moto-info {
@@ -52,9 +52,9 @@ mat-card-content {
     justify-content: space-between;
     align-items: center;
     color: var(--text-muted);
-    
+
     strong {
-        color: var(--text-main);
+      color: var(--text-main);
     }
   }
 }
@@ -101,10 +101,10 @@ mat-card-content {
     font-size: 1.1rem;
     background: var(--primary-gradient);
     box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-    
+
     &:hover:not([disabled]) {
-        box-shadow: 0 6px 16px rgba(59, 130, 246, 0.5);
-        background: var(--primary-gradient-hover);
+      box-shadow: 0 6px 16px rgba(59, 130, 246, 0.5);
+      background: var(--primary-gradient-hover);
     }
   }
 }
@@ -133,6 +133,12 @@ mat-card-content {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
