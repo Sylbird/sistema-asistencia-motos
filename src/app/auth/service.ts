@@ -24,7 +24,14 @@ export class AuthService {
         // Set the token in local storage
         localStorage.setItem('token', loginResponse.data.token);
         localStorage.setItem('UserData', JSON.stringify(loginResponse.data.usuario));
-        this.router.navigate(['/dashboard']);
+
+        // Navigate based on user role
+        const userData = loginResponse.data.usuario;
+        if (userData.id_rol === 1) {
+          this.router.navigate(['/dashboard-admin']);
+        } else {
+          this.router.navigate(['/dashboard']);
+        }
       }
     } catch (error) {
       throw error;
@@ -107,6 +114,11 @@ export class AuthService {
       this.logout();
       return false;
     }
+  }
+
+  getUserData(): any {
+    const userData = localStorage.getItem('UserData');
+    return userData ? JSON.parse(userData) : null;
   }
 
   logout(): void {

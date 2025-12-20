@@ -1,13 +1,15 @@
 import { Routes } from '@angular/router';
 import { Login } from './auth/login/login';
 import { Dashboard } from './features/dashboard/dashboard';
+import { DashboardAdmin } from './features/dashboard-admin/dashboard-admin';
 import { Home } from './features/home/home';
-import { authGuard, publicGuard } from './auth/guard';
+import { publicGuard, adminGuard, userGuard } from './auth/guard';
 import { SignUp } from './auth/sign-up/sign-up';
 import { Profile } from './features/profile/profile';
 import { Checkin } from './features/checkin/checkin';
 import { ResetPassword } from './auth/reset-password/reset-password';
 import { NewPassword } from './auth/reset-password/new-password/new-password';
+import { MenuAdmin } from './features/menu-admin/menu-admin';
 
 export const routes: Routes = [
   {
@@ -38,7 +40,7 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     component: Dashboard,
-    canActivate: [authGuard],
+    canActivate: [userGuard],
     children: [
       {
         path: '',
@@ -52,6 +54,26 @@ export const routes: Routes = [
       {
         path: 'checkin',
         component: Checkin,
+      },
+      {
+        path: 'profile',
+        component: Profile,
+      },
+    ],
+  },
+  {
+    path: 'dashboard-admin',
+    component: DashboardAdmin,
+    canActivate: [adminGuard],
+    children: [
+      {
+        path: '',
+        redirectTo: 'menu-admin',
+        pathMatch: 'full',
+      },
+      {
+        path: 'menu-admin',
+        component: MenuAdmin,
       },
       {
         path: 'profile',
