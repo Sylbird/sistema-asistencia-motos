@@ -1,0 +1,130 @@
+<div class="edit-dialog">
+  <div class="dialog-header">
+    <div class="header-content">
+      <div class="header-icon">
+        <mat-icon>edit</mat-icon>
+      </div>
+      <div class="header-text">
+        <h2 mat-dialog-title>Editar Usuario</h2>
+        <p class="user-name">{{ getFullName() }}</p>
+      </div>
+    </div>
+    <span
+      class="role-badge-header"
+      [class.admin]="data.id_rol === 1"
+      [class.conductor]="data.id_rol === 2"
+    >
+      {{ data.id_rol === 1 ? 'Administrador' : 'Conductor' }}
+    </span>
+  </div>
+
+  <mat-dialog-content>
+    <form [formGroup]="userForm" class="edit-form">
+      <div class="form-section">
+        <h3 class="section-title">
+          <mat-icon>person</mat-icon>
+          Información Personal
+        </h3>
+        <div class="form-row single-field">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Nombre</mat-label>
+            <input matInput type="text" formControlName="nombre" />
+            @if (userForm.get('nombre')?.hasError('required')) {
+              <mat-error>El nombre es requerido</mat-error>
+            }
+          </mat-form-field>
+        </div>
+        <div class="form-row two-columns">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Apellido Paterno</mat-label>
+            <input matInput type="text" formControlName="apellidoPaterno" />
+            @if (userForm.get('apellidoPaterno')?.hasError('required')) {
+              <mat-error>Apellido Requerido</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Apellido Materno</mat-label>
+            <input matInput type="text" formControlName="apellidoMaterno" />
+            @if (userForm.get('apellidoMaterno')?.hasError('required')) {
+              <mat-error>Apellido Requerido</mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h3 class="section-title">
+          <mat-icon>contact_mail</mat-icon>
+          Contacto y Acceso
+        </h3>
+
+        <div class="form-row two-columns">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Correo Electrónico</mat-label>
+            <input matInput type="email" formControlName="correo" />
+            @if (userForm.get('correo')?.hasError('required')) {
+              <mat-error>El correo es requerido</mat-error>
+            }
+            @if (userForm.get('correo')?.hasError('email')) {
+              <mat-error>Correo inválido</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Teléfono</mat-label>
+            <input matInput type="tel" formControlName="telefono" />
+            @if (userForm.get('telefono')?.hasError('required')) {
+              <mat-error>Teléfono Requerido</mat-error>
+            }
+            @if (userForm.get('telefono')?.hasError('pattern')) {
+              <mat-error>Debe tener 9 dígitos</mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h3 class="section-title">
+          <mat-icon>admin_panel_settings</mat-icon>
+          Permisos
+        </h3>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Rol del Usuario</mat-label>
+            <mat-select formControlName="id_rol">
+              @for (role of roles; track role.id) {
+                <mat-option [value]="role.id">
+                  <div class="role-option">
+                    <span>{{ role.nombre }}</span>
+                  </div>
+                </mat-option>
+              }
+            </mat-select>
+            @if (userForm.get('id_rol')?.hasError('required')) {
+              <mat-error>El rol es requerido</mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="onCancel()" class="cancel-button">
+      <mat-icon>close</mat-icon>
+      Cancelar
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="onSave()"
+      [disabled]="!userForm.valid"
+      class="save-button"
+    >
+      <mat-icon>save</mat-icon>
+      Guardar Cambios
+    </button>
+  </mat-dialog-actions>
+</div>
