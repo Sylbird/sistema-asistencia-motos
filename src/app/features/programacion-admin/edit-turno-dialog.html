@@ -1,0 +1,107 @@
+<div class="edit-dialog">
+  <div class="dialog-header">
+    <div class="header-content">
+      <div class="header-icon">
+        <mat-icon>schedule</mat-icon>
+      </div>
+      <div class="header-text">
+        <h2 mat-dialog-title>Editar Turno</h2>
+        <p class="turno-name">{{ data.nombre }}</p>
+      </div>
+    </div>
+    <span
+      class="status-badge-header"
+      [class.active]="data.activo === 1"
+      [class.inactive]="data.activo === 0"
+    >
+      {{ data.activo === 1 ? 'Activo' : 'Inactivo' }}
+    </span>
+  </div>
+
+  <mat-dialog-content>
+    <form [formGroup]="turnoForm" class="edit-form">
+      <div class="form-section">
+        <h3 class="section-title">
+          <mat-icon>label</mat-icon>
+          Información del Turno
+        </h3>
+        <div class="form-row single-field">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Nombre</mat-label>
+            <input matInput type="text" formControlName="nombre" />
+            @if (turnoForm.get('nombre')?.hasError('required')) {
+              <mat-error>El nombre es requerido</mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h3 class="section-title">
+          <mat-icon>access_time</mat-icon>
+          Horario
+        </h3>
+
+        <div class="form-row two-columns">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Hora Inicio</mat-label>
+            <input matInput type="time" formControlName="horaInicio" />
+            @if (turnoForm.get('horaInicio')?.hasError('required')) {
+              <mat-error>Hora de inicio requerida</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Hora Fin</mat-label>
+            <input matInput type="time" formControlName="horaFin" />
+            @if (turnoForm.get('horaFin')?.hasError('required')) {
+              <mat-error>Hora de fin requerida</mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h3 class="section-title">
+          <mat-icon>toggle_on</mat-icon>
+          Estado
+        </h3>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Estado del Turno</mat-label>
+            <mat-select formControlName="activo">
+              @for (option of activoOptions; track option.value) {
+                <mat-option [value]="option.value">
+                  <div class="status-option">
+                    <span>{{ option.label }}</span>
+                  </div>
+                </mat-option>
+              }
+            </mat-select>
+            @if (turnoForm.get('activo')?.hasError('required')) {
+              <mat-error>El estado es requerido</mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="onCancel()" class="cancel-button">
+      <mat-icon>close</mat-icon>
+      Cancelar
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="onSave()"
+      [disabled]="!turnoForm.valid"
+      class="save-button"
+    >
+      <mat-icon>save</mat-icon>
+      Guardar Cambios
+    </button>
+  </mat-dialog-actions>
+</div>

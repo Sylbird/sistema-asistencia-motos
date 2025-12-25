@@ -10,6 +10,7 @@ import { Checkin } from './features/checkin/checkin';
 import { ResetPassword } from './auth/reset-password/reset-password';
 import { NewPassword } from './auth/reset-password/new-password/new-password';
 import { MenuAdmin } from './features/menu-admin/menu-admin';
+import { ProgramacionAdmin } from './features/programacion-admin/programacion-admin';
 
 export const routes: Routes = [
   {
@@ -78,6 +79,10 @@ export const routes: Routes = [
       {
         path: 'profile',
         component: Profile,
+      },
+      {
+        path: 'programacion',
+        component: ProgramacionAdmin,
       },
     ],
   },
