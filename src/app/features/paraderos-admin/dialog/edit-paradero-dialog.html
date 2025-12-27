@@ -1,0 +1,108 @@
+<div class="edit-dialog">
+  <div class="dialog-header">
+    <div class="header-content">
+      <div class="header-icon">
+        <mat-icon>place</mat-icon>
+      </div>
+      <div class="header-text">
+        <h2 mat-dialog-title>{{ isEditMode ? 'Editar Paradero' : 'Nuevo Paradero' }}</h2>
+        @if (isEditMode && data) {
+          <p class="paradero-name">{{ data.nombre }}</p>
+        }
+      </div>
+    </div>
+  </div>
+
+  <mat-dialog-content>
+    <form [formGroup]="paraderoForm" class="edit-form">
+      <div class="form-section">
+        <h3 class="section-title">
+          <mat-icon>label</mat-icon>
+          Información del Paradero
+        </h3>
+
+        <div class="form-row single-field">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Nombre</mat-label>
+            <input matInput type="text" formControlName="nombre" />
+            @if (paraderoForm.get('nombre')?.hasError('required')) {
+              <mat-error>El nombre es requerido</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <div class="form-row single-field">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Dirección</mat-label>
+            <input matInput type="text" formControlName="direccion" />
+            @if (paraderoForm.get('direccion')?.hasError('required')) {
+              <mat-error>La dirección es requerida</mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h3 class="section-title">
+          <mat-icon>location_on</mat-icon>
+          Coordenadas
+        </h3>
+
+        <div class="form-row two-columns">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Latitud</mat-label>
+            <input matInput type="text" formControlName="lat" />
+            @if (paraderoForm.get('lat')?.hasError('required')) {
+              <mat-error>La latitud es requerida</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Longitud</mat-label>
+            <input matInput type="text" formControlName="lng" />
+            @if (paraderoForm.get('lng')?.hasError('required')) {
+              <mat-error>La longitud es requerida</mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h3 class="section-title">
+          <mat-icon>radio_button_checked</mat-icon>
+          Radio de Cobertura
+        </h3>
+
+        <div class="form-row single-field">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Radio en Metros</mat-label>
+            <input matInput type="number" formControlName="radioMetros" />
+            @if (paraderoForm.get('radioMetros')?.hasError('required')) {
+              <mat-error>El radio es requerido</mat-error>
+            }
+            @if (paraderoForm.get('radioMetros')?.hasError('min')) {
+              <mat-error>El radio debe ser mayor a 0</mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="onCancel()" class="cancel-button">
+      <mat-icon>close</mat-icon>
+      Cancelar
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="onSave()"
+      [disabled]="!paraderoForm.valid"
+      class="save-button"
+    >
+      <mat-icon>save</mat-icon>
+      {{ isEditMode ? 'Guardar Cambios' : 'Crear Paradero' }}
+    </button>
+  </mat-dialog-actions>
+</div>

@@ -11,6 +11,7 @@ import { ResetPassword } from './auth/reset-password/reset-password';
 import { NewPassword } from './auth/reset-password/new-password/new-password';
 import { MenuAdmin } from './features/menu-admin/menu-admin';
 import { ProgramacionAdmin } from './features/programacion-admin/programacion-admin';
+import { ParaderosAdmin } from './features/paraderos-admin/paraderos-admin';
 
 export const routes: Routes = [
   {
@@ -83,6 +84,10 @@ export const routes: Routes = [
       {
         path: 'programacion',
         component: ProgramacionAdmin,
+      },
+      {
+        path: 'paraderos',
+        component: ParaderosAdmin,
       },
     ],
   },
