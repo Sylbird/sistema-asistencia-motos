@@ -1,0 +1,61 @@
+<h2 mat-dialog-title class="dialog-title">
+  <mat-icon>{{ isEditMode ? 'edit' : 'add' }}</mat-icon>
+  {{ isEditMode ? 'Editar Moto' : 'Agregar Moto' }}
+</h2>
+
+<mat-dialog-content class="dialog-content">
+  <form [formGroup]="motoForm" class="moto-form">
+    <mat-form-field appearance="outline">
+      <mat-label>Número de Moto</mat-label>
+      <input matInput type="number" formControlName="numeroMoto" placeholder="Ej: 101" />
+      <mat-icon matPrefix>directions_bike</mat-icon>
+      @if (motoForm.get('numeroMoto')?.hasError('required')) {
+        <mat-error>Número de moto es requerido</mat-error>
+      }
+      @if (motoForm.get('numeroMoto')?.hasError('min')) {
+        <mat-error>Número debe ser mayor a 0</mat-error>
+      }
+    </mat-form-field>
+
+    @if (isEditMode) {
+      <mat-form-field appearance="outline">
+        <mat-label>Placa</mat-label>
+        <input matInput formControlName="placa" placeholder="Ej: 1-23-45" />
+        <mat-icon matPrefix>badge</mat-icon>
+        @if (motoForm.get('placa')?.hasError('required')) {
+          <mat-error>Placa es requerida</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Estado</mat-label>
+        <mat-select formControlName="estado">
+          @for (option of estadoOptions; track option.value) {
+            <mat-option [value]="option.value">{{ option.label }}</mat-option>
+          }
+        </mat-select>
+        <mat-icon matPrefix>toggle_on</mat-icon>
+        @if (motoForm.get('estado')?.hasError('required')) {
+          <mat-error>Estado es requerido</mat-error>
+        }
+      </mat-form-field>
+    }
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions class="dialog-actions">
+  <button mat-button (click)="onCancel()">
+    <mat-icon>close</mat-icon>
+    Cancelar
+  </button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="onSave()"
+    [disabled]="!motoForm.valid"
+    id="save-button"
+  >
+    <mat-icon>{{ isEditMode ? 'save' : 'add' }}</mat-icon>
+    {{ isEditMode ? 'Guardar' : 'Agregar' }}
+  </button>
+</mat-dialog-actions>
