@@ -9,7 +9,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Api } from '../../core/services/api';
-import { EditUserDialog, Usuario } from './edit-user-dialog';
+import { EditUserDialog, Usuario } from './dialog/edit-user-dialog';
 
 @Component({
   selector: 'app-menu-admin',

@@ -60,6 +60,14 @@ body {
   overflow: hidden; /* App-like feel */
 }
 
+table {
+  td {
+    mat-icon {
+      min-width: 24px !important;
+    }
+  }
+}
+
 /* Global Material Overrides for Modern Look */
 .mat-mdc-card {
   border-radius: 16px !important;
@@ -77,20 +85,8 @@ body {
   }
 }
 
-.mat-mdc-button,
-.mat-mdc-raised-button,
-.mat-mdc-unelevated-button,
-.mat-mdc-fab,
-.mat-mdc-extended-fab {
-  border-radius: 20px !important;
-  font-family: var(--font-main) !important;
-  letter-spacing: 0.5px;
-
-  &.mat-primary,
-  &.mat-accent,
-  &.mat-warn {
-    color: white !important;
-  }
+.save-button {
+  color: white !important;
 }
 
 /* Scrollbar Styling */

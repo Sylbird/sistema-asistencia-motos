@@ -9,7 +9,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Api } from '../../core/services/api';
-import { EditTurnoDialog, Turno } from './edit-turno-dialog';
+import { EditTurnoDialog, Turno } from './dialog/edit-turno-dialog';
 
 @Component({
   selector: 'app-programacion-admin',

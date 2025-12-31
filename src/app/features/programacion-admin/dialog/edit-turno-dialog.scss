@@ -1,8 +1,4 @@
 .edit-dialog {
-  .save-button {
-    background: var(--primary-gradient);
-  }
-
   .dialog-header {
     display: flex;
     align-items: center;
@@ -154,7 +150,7 @@ mat-dialog-actions {
     }
 
     &.save-button {
-      box-shadow: 0 3px 8px rgba(102, 126, 234, 0.3);
+      background: var(--primary-gradient);
 
       &:hover:not(:disabled) {
         box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);

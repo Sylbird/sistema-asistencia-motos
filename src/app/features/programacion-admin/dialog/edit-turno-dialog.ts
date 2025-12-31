@@ -9,7 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 
 export interface Turno {
-  idTurno: number;
+  idTurno: string;
   nombre: string;
   horaInicio: string;
   horaFin: string;

@@ -30,19 +30,9 @@
         .add-button {
           background-color: rgba(255, 255, 255, 0.2);
           color: white;
-          border: 1px solid rgba(255, 255, 255, 0.3);
-          display: flex;
-          align-items: center;
-          gap: 8px;
 
           &:hover {
             background-color: rgba(255, 255, 255, 0.3);
-          }
-
-          mat-icon {
-            font-size: 20px;
-            width: 20px;
-            height: 20px;
           }
         }
       }
@@ -71,13 +61,10 @@
           th {
             background-color: #f5f5f5;
             font-weight: 600;
-            color: #333;
-            padding: 16px;
             text-align: left;
           }
 
           td {
-            padding: 16px;
             border-bottom: 1px solid #e0e0e0;
 
             .paradero-name,
@@ -89,7 +76,6 @@
 
               mat-icon {
                 color: #667eea;
-                font-size: 20px;
               }
             }
 
