@@ -56,6 +56,10 @@ mat-card-header {
   }
 }
 
+.mat-mdc-card-content {
+  padding: 0 !important;
+}
+
 form {
   display: flex;
   flex-direction: column;
