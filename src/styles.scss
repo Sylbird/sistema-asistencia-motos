@@ -16,7 +16,7 @@
   --primary-gradient-hover: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
 
   --bg-color: #f0f9ff;
-  --glass-bg: rgba(255, 255, 255, 0.85);
+  --glass-bg: rgba(255, 255, 255, 0.65);
   --glass-border: rgba(255, 255, 255, 0.6);
   --glass-shadow: 0 10px 30px 0 rgba(59, 130, 246, 0.35);
 
@@ -54,10 +54,10 @@ html {
 body {
   margin: 0;
   font-family: var(--font-main);
-  background-color: var(--bg-color);
+  background-color: black;
   color: var(--text-main);
-  height: 100vh;
-  overflow: hidden; /* App-like feel */
+  height: inherit;
+  width: inherit;
 }
 
 table {
@@ -66,6 +66,10 @@ table {
       min-width: 24px !important;
     }
   }
+}
+
+.mat-mdc-card-content {
+  padding: 0 !important;
 }
 
 /* Global Material Overrides for Modern Look */
@@ -78,7 +82,6 @@ table {
 .mat-mdc-form-field {
   .mat-mdc-text-field-wrapper {
     background-color: #f1f5f9 !important; /* Slate 100 */
-    border-radius: 12px !important;
   }
   .mat-mdc-form-field-focus-overlay {
     background-color: transparent !important;
