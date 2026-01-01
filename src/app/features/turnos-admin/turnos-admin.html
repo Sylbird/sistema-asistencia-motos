@@ -1,0 +1,110 @@
+<div class="turnos-container">
+  <mat-card class="turnos-card">
+    <mat-card-header>
+      <mat-card-title>
+        <div class="card-title-content">
+          <mat-icon>schedule</mat-icon>
+          <span>Gestión de Turnos</span>
+        </div>
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      @if (loading()) {
+        <div class="loading-overlay">
+          <mat-spinner diameter="50"></mat-spinner>
+        </div>
+      }
+
+      @if (!loading() && turnos().length > 0) {
+        <div class="table-container">
+          <table mat-table [dataSource]="turnos()" class="turnos-table">
+            <!-- Nombre Column -->
+            <ng-container matColumnDef="nombre">
+              <th mat-header-cell *matHeaderCellDef>Nombre</th>
+              <td mat-cell *matCellDef="let turno">
+                <div class="turno-name">
+                  <mat-icon>label</mat-icon>
+                  <span>{{ turno.nombre }}</span>
+                </div>
+              </td>
+            </ng-container>
+
+            <!-- Hora Inicio Column -->
+            <ng-container matColumnDef="horaInicio">
+              <th mat-header-cell *matHeaderCellDef>Hora Inicio</th>
+              <td mat-cell *matCellDef="let turno">
+                <div class="time-cell">
+                  <mat-icon>access_time</mat-icon>
+                  <span>{{ turno.horaInicio }}</span>
+                </div>
+              </td>
+            </ng-container>
+
+            <!-- Hora Fin Column -->
+            <ng-container matColumnDef="horaFin">
+              <th mat-header-cell *matHeaderCellDef>Hora Fin</th>
+              <td mat-cell *matCellDef="let turno">
+                <div class="time-cell">
+                  <mat-icon>schedule</mat-icon>
+                  <span>{{ turno.horaFin }}</span>
+                </div>
+              </td>
+            </ng-container>
+
+            <!-- Activo Column -->
+            <ng-container matColumnDef="activo">
+              <th mat-header-cell *matHeaderCellDef>Estado</th>
+              <td mat-cell *matCellDef="let turno">
+                <span
+                  class="status-badge"
+                  [class.active]="turno.activo === 1"
+                  [class.inactive]="turno.activo === 0"
+                >
+                  {{ getEstadoLabel(turno.activo) }}
+                </span>
+              </td>
+            </ng-container>
+
+            <!-- Acciones Column -->
+            <ng-container matColumnDef="acciones">
+              <th mat-header-cell *matHeaderCellDef>Acciones</th>
+              <td mat-cell *matCellDef="let turno">
+                <div class="action-buttons">
+                  <button
+                    mat-icon-button
+                    color="primary"
+                    (click)="openEditDialog(turno)"
+                    matTooltip="Editar turno"
+                    class="edit-button"
+                  >
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <button
+                    mat-icon-button
+                    color="warn"
+                    (click)="deleteTurno(turno)"
+                    matTooltip="Eliminar turno"
+                    class="delete-button"
+                  >
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
+        </div>
+      }
+
+      @if (!loading() && turnos().length === 0) {
+        <div class="empty-state">
+          <mat-icon>schedule</mat-icon>
+          <p>No hay turnos registrados</p>
+        </div>
+      }
+    </mat-card-content>
+  </mat-card>
+</div>

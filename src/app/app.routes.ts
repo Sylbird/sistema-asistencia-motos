@@ -13,6 +13,7 @@ import { MenuAdmin } from './features/menu-admin/menu-admin';
 import { ProgramacionAdmin } from './features/programacion-admin/programacion-admin';
 import { ParaderosAdmin } from './features/paraderos-admin/paraderos-admin';
 import { VehiculosAdmin } from './features/vehiculos-admin/vehiculos-admin';
+import { TurnosAdmin } from './features/turnos-admin/turnos-admin';
 
 export const routes: Routes = [
   {
@@ -93,6 +94,10 @@ export const routes: Routes = [
       {
         path: 'vehiculos',
         component: VehiculosAdmin,
+      },
+      {
+        path: 'turnos',
+        component: TurnosAdmin,
       },
     ],
   },
