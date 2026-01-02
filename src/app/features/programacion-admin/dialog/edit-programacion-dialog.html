@@ -1,0 +1,92 @@
+<h2 mat-dialog-title class="dialog-title">
+  <mat-icon>{{ isEditMode ? 'edit' : 'add' }}</mat-icon>
+  {{ isEditMode ? 'Editar Programación' : 'Agregar Programación' }}
+</h2>
+
+<mat-dialog-content class="dialog-content">
+  @if (loading()) {
+    <div class="loading-container">
+      <mat-spinner diameter="40"></mat-spinner>
+      <p>Cargando datos...</p>
+    </div>
+  } @else {
+    <form [formGroup]="programacionForm" class="programacion-form">
+      <mat-form-field appearance="outline">
+        <mat-label>Moto</mat-label>
+        <mat-select formControlName="idMoto">
+          @for (moto of motos(); track moto.idMoto) {
+            <mat-option [value]="moto.idMoto">
+              Moto #{{ moto.numeroMoto }}
+              @if (moto.placa) {
+                <span class="placa-info"> - {{ moto.placa }}</span>
+              }
+            </mat-option>
+          }
+        </mat-select>
+        <mat-icon matPrefix>directions_bike</mat-icon>
+        @if (programacionForm.get('idMoto')?.hasError('required')) {
+          <mat-error>Moto es requerida</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Paradero</mat-label>
+        <mat-select formControlName="idParadero">
+          @for (paradero of paraderos(); track paradero.idParadero) {
+            <mat-option [value]="paradero.idParadero">
+              {{ paradero.nombre }}
+              <span class="direccion-info"> - {{ paradero.direccion }}</span>
+            </mat-option>
+          }
+        </mat-select>
+        <mat-icon matPrefix>location_on</mat-icon>
+        @if (programacionForm.get('idParadero')?.hasError('required')) {
+          <mat-error>Paradero es requerido</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Turno</mat-label>
+        <mat-select formControlName="idTurno">
+          @for (turno of turnos(); track turno.idTurno) {
+            <mat-option [value]="turno.idTurno">
+              {{ getTurnoDisplay(turno) }}
+            </mat-option>
+          }
+        </mat-select>
+        <mat-icon matPrefix>schedule</mat-icon>
+        @if (programacionForm.get('idTurno')?.hasError('required')) {
+          <mat-error>Turno es requerido</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Fecha</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="fecha" />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-icon matPrefix>calendar_month</mat-icon>
+        @if (programacionForm.get('fecha')?.hasError('required')) {
+          <mat-error>Fecha es requerida</mat-error>
+        }
+      </mat-form-field>
+    </form>
+  }
+</mat-dialog-content>
+
+<mat-dialog-actions class="dialog-actions">
+  <button mat-button (click)="onCancel()">
+    <mat-icon>close</mat-icon>
+    Cancelar
+  </button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="onSave()"
+    [disabled]="!programacionForm.valid || loading()"
+    class="save-button"
+  >
+    <mat-icon>{{ isEditMode ? 'save' : 'add' }}</mat-icon>
+    {{ isEditMode ? 'Guardar' : 'Agregar' }}
+  </button>
+</mat-dialog-actions>

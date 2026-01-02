@@ -1,0 +1,195 @@
+.programacion-container {
+  max-width: 1400px;
+}
+
+.programacion-card {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+
+  mat-card-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 24px;
+
+    mat-card-title {
+      display: flex;
+      align-items: center;
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 600;
+      gap: 12px;
+
+      .card-title-content {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+
+        mat-icon {
+          font-size: 2rem;
+          min-width: 2rem;
+          min-height: 2rem;
+        }
+      }
+
+      .add-button {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.3);
+        }
+      }
+    }
+  }
+
+  mat-card-content {
+    padding: 0;
+  }
+}
+
+.filters-container {
+  background: #f9f9f9;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 1.5rem 1rem 0 1rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.loading-overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+.table-container {
+  overflow-x: auto;
+
+  .programaciones-table {
+    background: white;
+
+    th {
+      background: #f5f5f5;
+      font-weight: 600;
+    }
+
+    td {
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    tr:hover {
+      background: #f9f9f9;
+    }
+
+    .moto-cell {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      .moto-value {
+        font-weight: 600;
+      }
+
+      .placa-value {
+        color: #666;
+        font-size: 0.875rem;
+      }
+    }
+
+    .paradero-cell {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      .paradero-info {
+        display: flex;
+        flex-direction: column;
+
+        .paradero-nombre {
+          font-weight: 500;
+        }
+
+        .paradero-direccion {
+          color: #666;
+          font-size: 0.875rem;
+        }
+      }
+    }
+
+    .turno-cell {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .fecha-cell {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 0.5rem;
+
+      button {
+        transition: all 0.2s ease;
+
+        &:hover {
+          transform: scale(1.1);
+        }
+
+        &.edit-button:hover {
+          background: rgba(102, 126, 234, 0.1);
+        }
+
+        &.delete-button:hover {
+          background: rgba(198, 40, 40, 0.1);
+        }
+      }
+    }
+  }
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  color: #999;
+
+  > mat-icon {
+    font-size: 4rem;
+    width: 4rem;
+    height: 4rem;
+  }
+
+  p {
+    font-size: 1.25rem;
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .programacion-card {
+    mat-card-header {
+      justify-content: center;
+      mat-card-title {
+        flex-direction: column;
+      }
+    }
+  }
+
+  .table-container {
+    .programaciones-table {
+      .paradero-info {
+        .paradero-direccion {
+          display: none;
+        }
+      }
+    }
+  }
+}
