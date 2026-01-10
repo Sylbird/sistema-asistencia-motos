@@ -136,11 +136,12 @@ export class EditProgramacionDialog {
     if (this.programacionForm.valid) {
       const formData = this.programacionForm.getRawValue();
 
-      // Format date to YYYY-MM-DD
+      // Format date to YYYY-MM-DD using local timezone (Peru)
+      // Do NOT use toISOString() as it converts to UTC and can shift the date
       const fecha =
-        formData.fecha instanceof Date
-          ? formData.fecha.toISOString().split('T')[0]
-          : formData.fecha;
+        formData.fecha instanceof Date ? this.formatDateToYYYYMMDD(formData.fecha) : formData.fecha;
+
+      console.log('Form data:', formData);
 
       if (this.isEditMode && this.data?.idProgramacion) {
         // Edit mode: include idProgramacion
@@ -167,5 +168,12 @@ export class EditProgramacionDialog {
 
   getTurnoDisplay(turno: Turno): string {
     return `${turno.nombre} (${turno.horaInicio.substring(0, 5)} - ${turno.horaFin.substring(0, 5)})`;
+  }
+
+  formatDateToYYYYMMDD(date: Date): string {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
   }
 }

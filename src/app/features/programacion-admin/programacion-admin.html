@@ -98,7 +98,7 @@
               <td mat-cell *matCellDef="let prog">
                 <div class="fecha-cell">
                   <mat-icon>event</mat-icon>
-                  <span>{{ prog.fecha }}</span>
+                  <span>{{ formatDateStringLocale(prog.fecha) }}</span>
                 </div>
               </td>
             </ng-container>
@@ -140,7 +140,7 @@
         <div class="empty-state">
           <mat-icon>event_busy</mat-icon>
           <p>No hay programaciones para la fecha seleccionada</p>
-          <p class="date-selected">{{ formatDate(selectedDate()) }}</p>
+          <p class="date-selected">{{ formatDateLocale(selectedDate()) }}</p>
           <button mat-raised-button color="primary" (click)="openAddDialog()">
             <mat-icon>add</mat-icon>
             Crear Programación
