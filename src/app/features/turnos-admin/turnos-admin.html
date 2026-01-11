@@ -58,10 +58,10 @@
               <td mat-cell *matCellDef="let turno">
                 <span
                   class="status-badge"
-                  [class.active]="turno.activo === 1"
-                  [class.inactive]="turno.activo === 0"
+                  [class.active]="turno.estadoAuditoria === 1"
+                  [class.inactive]="turno.estadoAuditoria === 0"
                 >
-                  {{ getEstadoLabel(turno.activo) }}
+                  {{ getEstadoLabel(turno.estadoAuditoria) }}
                 </span>
               </td>
             </ng-container>

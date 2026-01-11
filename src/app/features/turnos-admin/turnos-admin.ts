@@ -113,7 +113,7 @@ export class TurnosAdmin {
     });
   }
 
-  getEstadoLabel(activo: number): string {
-    return activo === 1 ? 'Activo' : 'Inactivo';
+  getEstadoLabel(estadoAuditoria: number): string {
+    return estadoAuditoria === 0 ? 'Inactivo' : 'Activo';
   }
 }
