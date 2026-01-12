@@ -14,8 +14,7 @@
 }
 
 mat-card-header {
-  margin-bottom: 1.5rem;
-  padding: 1.5rem 1.5rem 0.5rem 1.5rem;
+  padding: 1rem;
 
   mat-card-title {
     font-size: 1.5rem;
@@ -24,17 +23,13 @@ mat-card-header {
   }
 }
 
-mat-card-content {
-  padding: 0 1.5rem 2rem 1.5rem;
-}
-
 .moto-info {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   font-size: 1.1rem;
   background: var(--bg-color);
-  padding: 1.5rem;
+  padding: 1rem;
   border-radius: 12px;
 
   p {
@@ -120,6 +115,149 @@ mat-card-content {
       min-width: 160px;
     }
   }
+}
+
+// Schedule Card Styles
+.programacion-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.fecha-display {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+
+  strong {
+    font-weight: 700;
+  }
+
+  span {
+    font-weight: 600;
+  }
+}
+
+.paradero-section {
+  background: var(--bg-color);
+  padding: 1rem;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-color: #cbd5e1;
+  }
+}
+
+.paradero-nombre {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+}
+
+.paradero-direccion {
+  margin: 0 0 1rem 0;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  &::before {
+    content: '📍';
+    font-size: 1rem;
+  }
+}
+
+.turno-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.turno-nombre {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--text-main);
+}
+
+.turno-horario {
+  padding: 6px 14px;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: white;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(59, 130, 246, 0.3);
+}
+
+.numeros-container {
+  margin-top: 0.75rem;
+
+  strong {
+    display: block;
+    margin-bottom: 0.75rem;
+    color: var(--text-main);
+  }
+}
+
+.numeros-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.numero-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3);
+  transition: all 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(16, 185, 129, 0.4);
+  }
+}
+
+.total-motos {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e2e8f0;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+
+  strong {
+    color: var(--text-main);
+    font-weight: 700;
+  }
+}
+
+.no-programacion-text {
+  color: var(--text-muted);
+  font-style: italic;
+  text-align: center;
+  padding: 2rem;
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 1px dashed #cbd5e1;
 }
 
 @keyframes fadeIn {

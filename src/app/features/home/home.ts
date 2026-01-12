@@ -25,6 +25,30 @@ interface ApiResponse<T> {
   data: T;
 }
 
+interface Turno {
+  nombre: string;
+  horario: string;
+  horaInicio: string;
+  horaFin: string;
+  tipoDia: string | null;
+  numeros: number[];
+  totalMotos: number;
+}
+
+interface Paradero {
+  nombre: string;
+  direccion: string;
+  turnos: Turno[];
+}
+
+interface ProgramacionData {
+  fecha: string;
+  totalAsignaciones: number;
+  paraderos: Paradero[];
+}
+
+type ProgramacionResponse = ApiResponse<ProgramacionData>;
+
 @Component({
   selector: 'app-home',
   imports: [
@@ -42,6 +66,7 @@ interface ApiResponse<T> {
 export class Home implements OnInit {
   myMoto = signal<Moto | null>(null);
   availableMotos = signal<Moto[]>([]);
+  miProgramacion = signal<ProgramacionData | null>(null);
   selectedMotoControl = new FormControl<number | null>(null, [Validators.required]);
   isLoading = signal(false);
 
@@ -57,7 +82,7 @@ export class Home implements OnInit {
   async fetchInitialData() {
     this.isLoading.set(true);
     try {
-      await Promise.all([this.getMyMoto(), this.getAvailableMotos()]);
+      await Promise.all([this.getMyMoto(), this.getAvailableMotos(), this.getMiProgramacion()]);
     } catch (error) {
       console.error('Error fetching data', error);
     } finally {
@@ -84,6 +109,26 @@ export class Home implements OnInit {
       }
     } catch (error) {
       console.error('Error fetching available motos', error);
+    }
+  }
+
+  async getMiProgramacion() {
+    try {
+      // Get current date in YYYY-MM-DD format
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = String(today.getMonth() + 1).padStart(2, '0');
+      const day = String(today.getDate()).padStart(2, '0');
+      const fecha = `${year}-${month}-${day}`;
+
+      const response = await this.api.get<ProgramacionResponse>(
+        `/programacion-automatica/mi-programacion/${fecha}`,
+      );
+      if (response.success) {
+        this.miProgramacion.set(response.data);
+      }
+    } catch (error) {
+      console.error('Error fetching mi programacion', error);
     }
   }
 
