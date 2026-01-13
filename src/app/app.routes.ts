@@ -14,6 +14,7 @@ import { ProgramacionAdmin } from './features/programacion-admin/programacion-ad
 import { ParaderosAdmin } from './features/paraderos-admin/paraderos-admin';
 import { VehiculosAdmin } from './features/vehiculos-admin/vehiculos-admin';
 import { TurnosAdmin } from './features/turnos-admin/turnos-admin';
+import { Programacion } from './features/programacion/programacion';
 
 export const routes: Routes = [
   {
@@ -62,6 +63,10 @@ export const routes: Routes = [
       {
         path: 'profile',
         component: Profile,
+      },
+      {
+        path: 'programacion',
+        component: Programacion,
       },
     ],
   },
