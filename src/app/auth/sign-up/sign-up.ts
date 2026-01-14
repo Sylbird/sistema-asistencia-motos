@@ -9,6 +9,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../service';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-sign-up',
@@ -22,6 +23,7 @@ import { AuthService } from '../service';
     MatDividerModule,
     ReactiveFormsModule,
     RouterLink,
+    NgOptimizedImage,
   ],
   templateUrl: './sign-up.html',
   styleUrl: './sign-up.scss',

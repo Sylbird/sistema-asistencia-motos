@@ -2,7 +2,9 @@
   <mat-card>
     <mat-card-header>
       <mat-card-title>Iniciar Sesión</mat-card-title>
+      <img ngSrc="Logo.png" width="150" height="113" priority />
     </mat-card-header>
+
     <mat-card-content>
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <mat-form-field>

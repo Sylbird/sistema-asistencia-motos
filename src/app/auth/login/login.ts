@@ -9,6 +9,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { AuthService } from '../service';
 import { RouterLink } from '@angular/router';
 import { MatDividerModule } from '@angular/material/divider';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -22,6 +23,7 @@ import { MatDividerModule } from '@angular/material/divider';
     MatButtonModule,
     ReactiveFormsModule,
     RouterLink,
+    NgOptimizedImage,
   ],
   templateUrl: './login.html',
   styleUrl: './login.scss',
