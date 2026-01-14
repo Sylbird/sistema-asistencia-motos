@@ -1,179 +1,130 @@
 <div class="checkin-container">
-  <mat-card class="checkin-card">
+  <!-- Actions Card -->
+  <mat-card class="action-card">
     <mat-card-header>
-      <div mat-card-avatar class="checkin-header-icon">
-        <mat-icon>location_on</mat-icon>
+      <div mat-card-avatar class="header-icon">
+        <mat-icon>access_time</mat-icon>
       </div>
-      <mat-card-title>Marcar Asistencia</mat-card-title>
-      <mat-card-subtitle>
-        @if (moto(); as m) {
-          Moto #{{ m.numeroMoto }}
-        } @else {
-          Cargando info moto...
-        }
-      </mat-card-subtitle>
+      <mat-card-title>Control de Asistencia</mat-card-title>
+      <mat-card-subtitle>Marca tu llegada o salida</mat-card-subtitle>
     </mat-card-header>
 
-    <mat-card-content class="content">
-      <div class="form-section">
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Selecciona Paradero</mat-label>
-          <mat-select
-            [ngModel]="selectedParaderoId()"
-            (ngModelChange)="selectedParaderoId.set($event); updateSelectedParadero()"
-          >
-            @for (p of paraderos(); track p.id) {
-              <mat-option [value]="p.id">{{ p.nombre }}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
-      </div>
-
-      @if (selectedParadero(); as selectedP) {
-        <div class="paradero-info">
-          <div class="detail-item">
-            <mat-icon class="small-icon">place</mat-icon>
-            <span>{{ selectedP.direccion }}</span>
-          </div>
-          <div class="detail-item">
-            <span class="label">Coords:</span>
-            <span class="value">{{ selectedP.lat }}, {{ selectedP.lng }}</span>
-          </div>
-        </div>
-      }
-
-      <div class="action-area">
-        <button
-          mat-stroked-button
-          color="primary"
-          class="checkin-button"
-          (click)="getLocation()"
-          [disabled]="loading()"
-        >
-          @if (loading() && !location()) {
-            <mat-icon class="loading-icon"><mat-spinner diameter="20"></mat-spinner></mat-icon>
-          } @else {
-            <mat-icon>my_location</mat-icon>
-          }
-          {{ location() ? 'Actualizar Ubicación' : 'Obtener Ubicación' }}
-        </button>
-      </div>
-
-      @if (location(); as loc) {
-        <div class="location-result success">
-          <div class="result-header">
-            <mat-icon>check_circle</mat-icon>
-            <h3>Ubicación Actual</h3>
-          </div>
-
-          <div class="location-details">
-            <div class="detail-item">
-              <span class="label">Lat:</span>
-              <span class="value">{{ loc.lat | number: '1.4-6' }}</span>
-            </div>
-            <div class="detail-item">
-              <span class="label">Lng:</span>
-              <span class="value">{{ loc.lng | number: '1.4-6' }}</span>
-            </div>
-            <div class="detail-item">
-              <span class="label">Precisión:</span>
-              <span class="value">±{{ loc.accuracy }} m</span>
-            </div>
-          </div>
-        </div>
-      }
-
-      @if (locationError()) {
-        <div class="location-result error">
-          <mat-icon>error_outline</mat-icon>
-          <p>{{ locationError() }}</p>
-        </div>
-      }
-
-      <div class="submit-area">
+    <mat-card-content>
+      <div class="buttons-container">
         <button
           mat-raised-button
-          color="primary"
-          class="submit-button"
-          (click)="marcarAsistencia()"
-          [disabled]="loading() || !location() || !selectedParaderoId()"
+          class="action-btn llegada-btn"
+          (click)="marcar('llegada')"
+          [disabled]="markingLlegada() || markingSalida()"
         >
-          @if (loading() && location()) {
-            <mat-spinner diameter="20"></mat-spinner>
+          <mat-icon>login</mat-icon>
+          @if (markingLlegada()) {
+            <mat-spinner diameter="24" color="accent"></mat-spinner>
           } @else {
-            MARCAR ASISTENCIA
+            MARCAR LLEGADA
+          }
+        </button>
+
+        <button
+          mat-raised-button
+          class="action-btn salida-btn"
+          (click)="marcar('salida')"
+          [disabled]="markingLlegada() || markingSalida()"
+        >
+          <mat-icon>logout</mat-icon>
+          @if (markingSalida()) {
+            <mat-spinner diameter="24" color="accent"></mat-spinner>
+          } @else {
+            MARCAR SALIDA
           }
         </button>
       </div>
-    </mat-card-content>
-  </mat-card>
 
-  <!-- Assistencias History Card -->
-  <mat-card class="asistencias-card">
-    <mat-card-header>
-      <div mat-card-avatar class="asistencias-header-icon">
-        <mat-icon>history</mat-icon>
-      </div>
-      <mat-card-title>Historial de Asistencias</mat-card-title>
-      <mat-card-subtitle>
-        @if (asistencias().length > 0) {
-          {{ asistencias().length }} registro{{ asistencias().length !== 1 ? 's' : '' }}
-        } @else {
-          Sin registros
-        }
-      </mat-card-subtitle>
-    </mat-card-header>
-
-    <mat-card-content class="asistencias-content">
-      @if (asistencias().length === 0) {
-        <div class="empty-state">
-          <mat-icon class="empty-icon">inbox</mat-icon>
-          <p class="empty-text">Aún no has marcado asistencias</p>
-        </div>
-      } @else {
-        <div class="table-container">
-          <table mat-table [dataSource]="asistencias()" class="asistencias-table">
-            <!-- Paradero Column -->
-            <ng-container matColumnDef="paradero">
-              <th mat-header-cell *matHeaderCellDef>Paradero</th>
-              <td mat-cell *matCellDef="let asistencia">
-                <div class="paradero-cell">
-                  <mat-icon class="cell-icon">place</mat-icon>
-                  <span>{{ asistencia.direccionParadero }}</span>
-                </div>
-              </td>
-            </ng-container>
-
-            <!-- Fecha Column -->
-            <ng-container matColumnDef="fecha">
-              <th mat-header-cell *matHeaderCellDef>Fecha</th>
-              <td mat-cell *matCellDef="let asistencia">
-                <div class="fecha-cell">
-                  <mat-icon class="cell-icon">event</mat-icon>
-                  <span>{{ asistencia.creadoEn | date: 'dd/MM/yyyy HH:mm' }}</span>
-                </div>
-              </td>
-            </ng-container>
-
-            <!-- Coordenadas Column -->
-            <ng-container matColumnDef="coordenadas">
-              <th mat-header-cell *matHeaderCellDef>Coordenadas</th>
-              <td mat-cell *matCellDef="let asistencia">
-                <div class="coords-cell">
-                  <mat-icon class="cell-icon">my_location</mat-icon>
-                  <span class="coords-text"
-                    >{{ asistencia.lat | number: '1.4-4' }},
-                    {{ asistencia.lng | number: '1.4-4' }}</span
-                  >
-                </div>
-              </td>
-            </ng-container>
-
-            <tr mat-header-row *matHeaderRowDef="['paradero', 'fecha', 'coordenadas']"></tr>
-            <tr mat-row *matRowDef="let row; columns: ['paradero', 'fecha', 'coordenadas']"></tr>
-          </table>
+      @if (location()) {
+        <div class="location-status success">
+          <mat-icon>my_location</mat-icon>
+          <span>Ubicación detectada</span>
         </div>
       }
     </mat-card-content>
   </mat-card>
+
+  <!-- History Section -->
+  <div class="history-section">
+    <h2 class="section-title">Historial Reciente</h2>
+
+    @if (loading() && rawAsistencias().length === 0) {
+      <div class="loading-container">
+        <mat-spinner diameter="40"></mat-spinner>
+      </div>
+    }
+
+    @if (!loading() && rawAsistencias().length === 0) {
+      <div class="empty-state">
+        <mat-icon>history_toggle_off</mat-icon>
+        <p>No hay registros recientes</p>
+      </div>
+    }
+
+    <div class="history-list">
+      @for (group of historialGroups(); track group.idProgramacion) {
+        <mat-card class="history-card">
+          <div class="card-header">
+            <div class="date-info">
+              <span class="day">{{ group.fecha | date: 'dd' }}</span>
+              <span class="month">{{ group.fecha | date: 'MMM' }}</span>
+            </div>
+            <div class="meta-info">
+              <span class="paradero">{{ group.paraderoNombre }}</span>
+              <span class="turno">{{ group.turnoNombre }}</span>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <!-- Llegada Row -->
+            <div class="status-row" [class.missing]="!group.llegada">
+              <div class="label">
+                <mat-icon class="icon-llegada">login</mat-icon>
+                <span>Llegada</span>
+              </div>
+              <div class="value">
+                @if (group.llegada) {
+                  <span class="time">{{ group.llegada.horaMarcado | date: 'HH:mm' }}</span>
+                  <span
+                    class="status-badge"
+                    [class.late]="group.llegada.estadoAsistencia === 'tarde'"
+                  >
+                    {{ group.llegada.estadoAsistencia | titlecase }}
+                  </span>
+                } @else {
+                  <span class="placeholder">--:--</span>
+                }
+              </div>
+            </div>
+
+            <!-- Salida Row -->
+            <div class="status-row" [class.missing]="!group.salida">
+              <div class="label">
+                <mat-icon class="icon-salida">logout</mat-icon>
+                <span>Salida</span>
+              </div>
+              <div class="value">
+                @if (group.salida) {
+                  <span class="time">{{ group.salida.horaMarcado | date: 'HH:mm' }}</span>
+                  <span
+                    class="status-badge"
+                    [class.late]="group.salida.estadoAsistencia === 'tarde'"
+                  >
+                    {{ group.salida.estadoAsistencia | titlecase }}
+                  </span>
+                } @else {
+                  <span class="placeholder">--:--</span>
+                }
+              </div>
+            </div>
+          </div>
+        </mat-card>
+      }
+    </div>
+  </div>
 </div>
