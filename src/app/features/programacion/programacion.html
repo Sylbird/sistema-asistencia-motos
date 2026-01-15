@@ -4,52 +4,73 @@
       <mat-card-title>Programaciones</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      @if (isLoading()) {
-        <div class="loading-state">
-          <p>Cargando programación...</p>
-        </div>
-      } @else if (programacionVisual()) {
-        <div class="programacion-info">
-          <div class="fecha-display">
-            <strong>Fecha:</strong>
-            <span>{{ programacionVisual()?.fecha }}</span>
+      <mat-tab-group class="tabs-dia" (selectedIndexChange)="onTabChange($event)">
+        <mat-tab label="Hoy">
+          <ng-container
+            *ngTemplateOutlet="
+              contentTpl;
+              context: { $implicit: dataToday(), loading: loadingToday(), label: 'hoy' }
+            "
+          ></ng-container>
+        </mat-tab>
+        <mat-tab label="Mañana">
+          <ng-container
+            *ngTemplateOutlet="
+              contentTpl;
+              context: { $implicit: dataTomorrow(), loading: loadingTomorrow(), label: 'mañana' }
+            "
+          ></ng-container>
+        </mat-tab>
+      </mat-tab-group>
+
+      <ng-template #contentTpl let-data let-loading="loading" let-label="label">
+        @if (loading) {
+          <div class="loading-state">
+            <p>Cargando programación...</p>
           </div>
-
-          @for (paradero of programacionVisual()?.paraderos; track paradero.nombre) {
-            <div class="paradero-section">
-              <h3 class="paradero-nombre">{{ paradero.nombre }}</h3>
-              <p class="paradero-direccion">{{ paradero.direccion }}</p>
-
-              @for (turno of paradero.turnos; track turno.nombre) {
-                <div class="turno-item">
-                  <div class="turno-header">
-                    <span class="turno-nombre">{{ turno.nombre }}</span>
-                    <span class="turno-horario">{{ turno.horario }}</span>
-                  </div>
-                  @if (turno.tipoDia) {
-                    <div class="turno-tipo">
-                      <span class="tipo-badge">{{ turno.tipoDia }}</span>
-                    </div>
-                  }
-                  <div class="numeros-container">
-                    <strong>Motos asignadas:</strong>
-                    <div class="numeros-list">
-                      @for (numero of turno.numeros; track numero) {
-                        <span class="numero-badge">{{ numero }}</span>
-                      }
-                    </div>
-                  </div>
-                  <div class="total-motos">
-                    Total de motos: <strong>{{ turno.totalMotos }}</strong>
-                  </div>
-                </div>
-              }
+        } @else if (data) {
+          <div class="programacion-info">
+            <div class="fecha-display">
+              <strong>Fecha:</strong>
+              <span>{{ data.fecha }}</span>
             </div>
-          }
-        </div>
-      } @else {
-        <p class="no-programacion-text">No hay programación disponible para hoy</p>
-      }
+
+            @for (paradero of data.paraderos; track paradero.nombre) {
+              <div class="paradero-section">
+                <h3 class="paradero-nombre">{{ paradero.nombre }}</h3>
+                <p class="paradero-direccion">{{ paradero.direccion }}</p>
+
+                @for (turno of paradero.turnos; track turno.nombre) {
+                  <div class="turno-item">
+                    <div class="turno-header">
+                      <span class="turno-nombre">{{ turno.nombre }}</span>
+                      <span class="turno-horario">{{ turno.horario }}</span>
+                    </div>
+                    @if (turno.tipoDia) {
+                      <div class="turno-tipo">
+                        <span class="tipo-badge">{{ turno.tipoDia }}</span>
+                      </div>
+                    }
+                    <div class="numeros-container">
+                      <strong>Motos asignadas:</strong>
+                      <div class="numeros-list">
+                        @for (numero of turno.numeros; track numero) {
+                          <span class="numero-badge">{{ numero }}</span>
+                        }
+                      </div>
+                    </div>
+                    <div class="total-motos">
+                      Total de motos: <strong>{{ turno.totalMotos }}</strong>
+                    </div>
+                  </div>
+                }
+              </div>
+            }
+          </div>
+        } @else {
+          <p class="no-programacion-text">No hay programación disponible para {{ label }}</p>
+        }
+      </ng-template>
     </mat-card-content>
   </mat-card>
 </div>
