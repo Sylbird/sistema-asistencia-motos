@@ -94,7 +94,7 @@
               }
 
               &.inactive {
-                background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+                background: var(--admin-header-gradient-alt);
                 color: white;
                 box-shadow: 0 2px 6px rgba(245, 87, 108, 0.3);
               }

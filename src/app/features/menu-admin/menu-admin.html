@@ -10,17 +10,15 @@
     <!-- Conductores Card -->
     <mat-card class="usuarios-card">
       <mat-card-header>
-        <div mat-card-avatar class="card-header-icon conductores-icon">
-          <mat-icon>drive_eta</mat-icon>
-        </div>
-        <mat-card-title>Conductores</mat-card-title>
-        <mat-card-subtitle>
-          @if (conductores().length > 0) {
-            {{ conductores().length }} conductor{{ conductores().length !== 1 ? 'es' : '' }}
-          } @else {
-            Sin registros
-          }
-        </mat-card-subtitle>
+        <mat-card-title>
+          <div class="card-title-content">
+            <mat-icon>drive_eta</mat-icon>
+            <span>Gestión de Conductores</span>
+            @if (conductores().length > 0) {
+              <span class="count-badge">{{ conductores().length }}</span>
+            }
+          </div>
+        </mat-card-title>
       </mat-card-header>
 
       <mat-card-content>
@@ -55,7 +53,6 @@
               </ng-container>
 
               <!-- Rol Column -->
-
               <ng-container matColumnDef="rol">
                 <th mat-header-cell *matHeaderCellDef>Rol</th>
                 <td mat-cell *matCellDef="let usuario">
@@ -72,7 +69,6 @@
               </ng-container>
 
               <!-- Teléfono Column -->
-
               <ng-container matColumnDef="telefono">
                 <th mat-header-cell *matHeaderCellDef>Teléfono</th>
                 <td mat-cell *matCellDef="let usuario">
@@ -119,18 +115,16 @@
 
     <!-- Admins Card -->
     <mat-card class="usuarios-card">
-      <mat-card-header>
-        <div mat-card-avatar class="card-header-icon admins-icon">
-          <mat-icon>admin_panel_settings</mat-icon>
-        </div>
-        <mat-card-title>Administradores</mat-card-title>
-        <mat-card-subtitle>
-          @if (admins().length > 0) {
-            {{ admins().length }} administrador{{ admins().length !== 1 ? 'es' : '' }}
-          } @else {
-            Sin registros
-          }
-        </mat-card-subtitle>
+      <mat-card-header class="admin-header">
+        <mat-card-title>
+          <div class="card-title-content">
+            <mat-icon>admin_panel_settings</mat-icon>
+            <span>Administradores</span>
+            @if (admins().length > 0) {
+              <span class="count-badge">{{ admins().length }}</span>
+            }
+          </div>
+        </mat-card-title>
       </mat-card-header>
 
       <mat-card-content>
