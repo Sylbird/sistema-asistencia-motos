@@ -77,6 +77,10 @@
 
     td {
       border-bottom: 1px solid #e0e0e0;
+
+      mat-icon {
+        color: #667eea;
+      }
     }
 
     tr:hover {
@@ -133,6 +137,10 @@
     .action-buttons {
       display: flex;
       gap: 0.5rem;
+
+      mat-icon {
+        color: #666;
+      }
 
       button {
         transition: all 0.2s ease;
