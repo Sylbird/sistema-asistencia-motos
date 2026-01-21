@@ -4,7 +4,7 @@
     align-items: center;
     justify-content: space-between;
     border-bottom: 2px solid #f0f0f0;
-    padding: 0rem 1rem 1rem 1rem;
+    padding: 1rem;
 
     .header-content {
       display: flex;
@@ -96,6 +96,7 @@
 
       &.single-field {
         margin-bottom: 1em;
+        flex-direction: column;
       }
 
       &.two-columns {

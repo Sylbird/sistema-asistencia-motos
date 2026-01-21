@@ -31,7 +31,7 @@ export class TurnosAdmin {
   turnos = signal<Turno[]>([]);
   loading = signal(false);
 
-  displayedColumns = ['nombre', 'horaInicio', 'horaFin', 'activo', 'acciones'];
+  displayedColumns = ['nombre', 'paradero', 'horaInicio', 'horaFin', 'acciones'];
 
   constructor(
     private apiService: Api,
@@ -63,6 +63,20 @@ export class TurnosAdmin {
     }
   }
 
+  openAddDialog() {
+    const dialogRef = this.dialog.open(EditTurnoDialog, {
+      width: '500px',
+      maxWidth: '95vw',
+      data: null,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.createTurno(result);
+      }
+    });
+  }
+
   openEditDialog(turno: Turno) {
     const dialogRef = this.dialog.open(EditTurnoDialog, {
       width: '500px',
@@ -75,6 +89,34 @@ export class TurnosAdmin {
         this.updateTurno(result);
       }
     });
+  }
+
+  async createTurno(data: Omit<Turno, 'idTurno'>) {
+    this.loading.set(true);
+    try {
+      const response = await this.apiService.post<{
+        success: boolean;
+        message: string;
+      }>('/turno/insertar', data);
+
+      if (response.success) {
+        this.snackBar.open('Turno creado correctamente', 'OK', {
+          duration: 3000,
+          panelClass: 'success-snackbar',
+        });
+        // Reload data to reflect changes
+        await this.loadTurnos();
+      }
+    } catch (error: any) {
+      console.error('Error creating turno', error);
+      const errorMessage = error?.response?.data?.message || 'Error al crear turno';
+      this.snackBar.open(errorMessage, 'Cerrar', {
+        duration: 3000,
+        panelClass: 'error-snackbar',
+      });
+    } finally {
+      this.loading.set(false);
+    }
   }
 
   async updateTurno(data: Partial<Turno> & { idTurno: string }) {
@@ -111,9 +153,5 @@ export class TurnosAdmin {
     this.snackBar.open('Función de eliminación en desarrollo', 'OK', {
       duration: 2000,
     });
-  }
-
-  getEstadoLabel(estadoAuditoria: number): string {
-    return estadoAuditoria === 0 ? 'Inactivo' : 'Activo';
   }
 }
