@@ -112,6 +112,12 @@
               <div matListItemTitle>Teléfono</div>
               <div matListItemLine>{{ userData.telefono }}</div>
             </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item>
+              <mat-icon matListItemIcon>badge</mat-icon>
+              <div matListItemTitle>Rol</div>
+              <div matListItemLine>{{ getRoleName(userData.id_rol) }}</div>
+            </mat-list-item>
           </mat-list>
         }
       </mat-card-content>

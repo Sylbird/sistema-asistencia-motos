@@ -12,11 +12,22 @@ import { Api } from '../../core/services/api';
 
 interface UserData {
   idUsuario: string;
+  correo: string;
+  id_rol: number;
   nombre: string;
   apellidoPaterno: string;
   apellidoMaterno: string;
-  correo: string;
   telefono: string;
+  estadoAuditoria: number;
+  fechaCreacion: string;
+  fechaModificacion: string;
+}
+
+interface ProfileResponse {
+  success: boolean;
+  message: string;
+  status: number;
+  data: UserData;
 }
 
 @Component({
@@ -54,11 +65,35 @@ export class Profile implements OnInit {
   ) {}
 
   ngOnInit() {
-    const userData = localStorage.getItem('UserData');
-    if (userData) {
-      const parsedData = JSON.parse(userData);
-      this.user.set(parsedData);
-      this.initForm(parsedData);
+    this.fetchProfile();
+  }
+
+  async fetchProfile() {
+    this.loading.set(true);
+    try {
+      const response = await this.api.get<ProfileResponse>('/usuario/perfil');
+      if (response.success && response.data) {
+        this.user.set(response.data);
+        this.initForm(response.data);
+      } else {
+        this.snackBar.open('Error al cargar perfil', 'Cerrar', { duration: 3000 });
+      }
+    } catch (error) {
+      console.error('Error fetching profile:', error);
+      this.snackBar.open('Error de conexión', 'Cerrar', { duration: 3000 });
+    } finally {
+      this.loading.set(false);
+    }
+  }
+
+  getRoleName(id_rol: number): string {
+    switch (id_rol) {
+      case 1:
+        return 'Administrador';
+      case 2:
+        return 'Conductor';
+      default:
+        return 'Usuario';
     }
   }
 
