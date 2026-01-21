@@ -22,8 +22,8 @@
         width: 48px;
         height: 48px;
         border-radius: 12px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        background: var(--admin-header-gradient);
+        box-shadow: 0 4px 12px rgba(15, 23, 42, 0.35);
 
         mat-icon {
           font-size: 28px;
@@ -57,15 +57,15 @@
       text-transform: uppercase;
 
       &.admin {
-        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        background: var(--admin-header-gradient-alt);
         color: white;
-        box-shadow: 0 3px 8px rgba(245, 87, 108, 0.3);
+        box-shadow: 0 3px 8px rgba(234, 88, 12, 0.35);
       }
 
       &.conductor {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: var(--admin-header-gradient);
         color: white;
-        box-shadow: 0 3px 8px rgba(118, 75, 162, 0.3);
+        box-shadow: 0 3px 8px rgba(15, 23, 42, 0.35);
       }
     }
     @media (max-width: 600px) {

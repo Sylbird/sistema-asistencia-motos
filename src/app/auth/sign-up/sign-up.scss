@@ -3,7 +3,7 @@ main {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+  background: var(--primary-gradient);
   position: relative;
   overflow: hidden;
 
@@ -80,11 +80,11 @@ button#signUpButton {
   font-size: 1.1rem;
   font-weight: 600;
   background: var(--primary-gradient);
-  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+  box-shadow: 0 4px 15px rgba(15, 23, 42, 0.35);
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6);
+    box-shadow: 0 6px 20px rgba(15, 23, 42, 0.45);
     background: var(--primary-gradient-hover);
   }
 }

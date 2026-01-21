@@ -7,31 +7,28 @@
 :root {
   --font-main: 'Outfit', sans-serif;
 
-  // Blue Gradient Palette
-  --primary-color: #3b82f6; /* Blue 500 */
-  --primary-dark: #1d4ed8; /* Blue 700 */
-  --secondary-color: #0ea5e9; /* Sky 500 */
+  --primary-color: #ea580c;
+  --primary-dark: #9a3412;
+  --secondary-color: #0f766e;
 
-  --primary-gradient: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);
-  --primary-gradient-hover: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+  --primary-gradient: linear-gradient(135deg, #f97316 0%, #0f766e 100%);
+  --primary-gradient-hover: linear-gradient(135deg, #fb923c 0%, #115e59 100%);
 
-  // Admin Feature Gradients
-  --admin-header-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --admin-header-gradient-alt: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  --admin-header-gradient: linear-gradient(135deg, #0f172a 0%, #0f766e 100%);
+  --admin-header-gradient-alt: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%);
 
-  --bg-color: #f0f9ff;
-  --glass-bg: rgba(255, 255, 255, 0.65);
-  --glass-border: rgba(255, 255, 255, 0.6);
-  --glass-shadow: 0 10px 30px 0 rgba(59, 130, 246, 0.35);
+  --bg-color: #f5f5f4;
+  --glass-bg: rgba(255, 255, 255, 0.75);
+  --glass-border: rgba(148, 163, 184, 0.4);
+  --glass-shadow: 0 10px 30px 0 rgba(15, 23, 42, 0.18);
 
-  --text-main: #020617; /* Slate 950 - Darker/Sharper */
-  --text-muted: #475569; /* Slate 600 - Darker for better visibility */
+  --text-main: #020617;
+  --text-muted: #475569;
 
   --sidebar-width: 260px;
 }
 
 html {
-  // Use available palettes to pass build (Azure/Blue), then override variables below
   @include mat.theme(
     (
       color: (
@@ -43,22 +40,21 @@ html {
     )
   );
 
-  // Override Material System Tokens to Blue Identity
-  --mat-sys-primary: #3b82f6;
+  --mat-sys-primary: #ea580c;
   --mat-sys-on-primary: #ffffff;
-  --mat-sys-primary-container: #dbeafe;
-  --mat-sys-on-primary-container: #1e3a8a;
+  --mat-sys-primary-container: #ffedd5;
+  --mat-sys-on-primary-container: #7c2d12;
 
-  --mat-sys-tertiary: #0ea5e9;
+  --mat-sys-tertiary: #0f766e;
   --mat-sys-on-tertiary: #ffffff;
-  --mat-sys-tertiary-container: #e0f2fe;
-  --mat-sys-on-tertiary-container: #075985;
+  --mat-sys-tertiary-container: #ccfbf1;
+  --mat-sys-on-tertiary-container: #134e4a;
 }
 
 body {
   margin: 0;
   font-family: var(--font-main);
-  background-color: black;
+  background-color: var(--bg-color);
   color: var(--text-main);
   height: inherit;
   width: inherit;

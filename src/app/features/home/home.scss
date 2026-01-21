@@ -129,10 +129,10 @@ mat-card-header {
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--admin-header-gradient);
   color: white;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 4px 12px rgba(15, 118, 110, 0.3);
 
   strong {
     font-weight: 700;
@@ -193,12 +193,12 @@ mat-card-header {
 
 .turno-horario {
   padding: 6px 14px;
-  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  background: var(--primary-gradient);
   color: white;
   border-radius: 20px;
   font-size: 0.9rem;
   font-weight: 600;
-  box-shadow: 0 2px 6px rgba(59, 130, 246, 0.3);
+  box-shadow: 0 2px 6px rgba(15, 118, 110, 0.3);
 }
 
 .numeros-container {
@@ -223,17 +223,17 @@ mat-card-header {
   justify-content: center;
   min-width: 40px;
   height: 40px;
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  background: linear-gradient(135deg, #22c55e 0%, #0f766e 100%);
   color: white;
   border-radius: 8px;
   font-weight: 700;
   font-size: 0.95rem;
-  box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3);
+  box-shadow: 0 2px 6px rgba(15, 118, 110, 0.35);
   transition: all 0.2s ease;
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(16, 185, 129, 0.4);
+    box-shadow: 0 4px 10px rgba(15, 118, 110, 0.45);
   }
 }
 

@@ -4,7 +4,7 @@
   gap: 0.75rem;
   margin: 0;
   padding: 1.5rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--admin-header-gradient);
   color: white;
 
   mat-icon {
@@ -61,7 +61,7 @@
   }
 
   .save-button {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--primary-gradient);
   }
 }
 
