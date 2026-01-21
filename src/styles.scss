@@ -72,6 +72,11 @@ mat-tab-header {
   margin-bottom: 1rem;
 }
 
+/*Remove h2::before pseudo-element Globally*/
+h2::before {
+  content: none !important;
+}
+
 /* Global Material Overrides for Modern Look */
 .mat-mdc-card {
   border-radius: 16px !important;
