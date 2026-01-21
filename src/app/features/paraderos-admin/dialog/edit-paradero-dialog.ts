@@ -11,6 +11,7 @@ export interface Paradero {
   idParadero: number;
   nombre: string;
   direccion: string;
+  capacidadMotos: number;
   lat: string;
   lng: string;
   radioMetros: number;
@@ -45,6 +46,7 @@ export class EditParaderoDialog {
     this.paraderoForm = this.fb.group({
       nombre: [data?.nombre || '', [Validators.required]],
       direccion: [data?.direccion || '', [Validators.required]],
+      capacidadMotos: [data?.capacidadMotos || 0, [Validators.required, Validators.min(0)]],
       lat: [data?.lat || '', [Validators.required]],
       lng: [data?.lng || '', [Validators.required]],
       radioMetros: [data?.radioMetros || 100, [Validators.required, Validators.min(1)]],

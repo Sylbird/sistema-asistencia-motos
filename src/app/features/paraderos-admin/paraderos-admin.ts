@@ -31,7 +31,15 @@ export class ParaderosAdmin {
   paraderos = signal<Paradero[]>([]);
   loading = signal(false);
 
-  displayedColumns = ['nombre', 'direccion', 'lat', 'lng', 'radioMetros', 'acciones'];
+  displayedColumns = [
+    'nombre',
+    'direccion',
+    'capacidadMotos',
+    'lat',
+    'lng',
+    'radioMetros',
+    'acciones',
+  ];
 
   constructor(
     private apiService: Api,
