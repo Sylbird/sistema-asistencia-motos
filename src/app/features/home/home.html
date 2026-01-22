@@ -5,7 +5,7 @@
       <mat-card-title>Programación de hoy</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      @if (miProgramacion()) {
+      @if (miProgramacion() !== null) {
         <div class="programacion-info">
           <div class="fecha-display">
             <strong>Fecha:</strong>

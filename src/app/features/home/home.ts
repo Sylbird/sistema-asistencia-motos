@@ -125,7 +125,11 @@ export class Home implements OnInit {
         `/programacion-automatica/mi-programacion/${fecha}`,
       );
       if (response.success) {
-        this.miProgramacion.set(response.data);
+        if (response.data.paraderos.length > 0) {
+          this.miProgramacion.set(response.data);
+        } else {
+          this.miProgramacion.set(null);
+        }
       }
     } catch (error) {
       console.error('Error fetching mi programacion', error);
