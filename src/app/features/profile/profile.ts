@@ -78,9 +78,10 @@ export class Profile implements OnInit {
       } else {
         this.snackBar.open('Error al cargar perfil', 'Cerrar', { duration: 3000 });
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching profile:', error);
-      this.snackBar.open('Error de conexión', 'Cerrar', { duration: 3000 });
+      const errorMessage = error?.response?.data?.message || 'Error de conexión';
+      this.snackBar.open(errorMessage, 'Cerrar', { duration: 3000 });
     } finally {
       this.loading.set(false);
     }
@@ -172,9 +173,10 @@ export class Profile implements OnInit {
       });
 
       this.isEditing.set(false);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error updating profile:', error);
-      this.snackBar.open('Error al actualizar el perfil', 'Cerrar', {
+      const errorMessage = error?.response?.data?.message || 'Error al actualizar el perfil';
+      this.snackBar.open(errorMessage, 'Cerrar', {
         duration: 3000,
         horizontalPosition: 'end',
         verticalPosition: 'top',
