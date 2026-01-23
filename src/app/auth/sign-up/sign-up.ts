@@ -10,6 +10,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../service';
 import { NgOptimizedImage } from '@angular/common';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-sign-up',
@@ -24,12 +25,16 @@ import { NgOptimizedImage } from '@angular/common';
     ReactiveFormsModule,
     RouterLink,
     NgOptimizedImage,
+    MatSnackBarModule,
   ],
   templateUrl: './sign-up.html',
   styleUrl: './sign-up.scss',
 })
 export class SignUp {
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private snackBar: MatSnackBar,
+  ) {}
 
   readonly signUpForm = new FormGroup({
     nombre: new FormControl('', [Validators.required]),
@@ -48,18 +53,28 @@ export class SignUp {
     event.stopPropagation();
   }
 
-  onSubmit() {
+  async onSubmit() {
     if (this.signUpForm.valid) {
       const { nombre, apellidoPaterno, apellidoMaterno, correo, telefono, clave } =
         this.signUpForm.value;
-      this.authService.signUp(
-        nombre!,
-        apellidoPaterno!,
-        apellidoMaterno!,
-        correo!,
-        telefono!,
-        clave!,
-      );
+      try {
+        await this.authService.signUp(
+          nombre!,
+          apellidoPaterno!,
+          apellidoMaterno!,
+          correo!,
+          telefono!,
+          clave!,
+        );
+      } catch (error: any) {
+        const errorMessage = error?.response?.data?.message || 'Error al registrar usuario';
+        this.snackBar.open(errorMessage, 'Cerrar', {
+          duration: 3000,
+          horizontalPosition: 'end',
+          verticalPosition: 'top',
+          panelClass: ['error-snackbar'],
+        });
+      }
     }
   }
 }
