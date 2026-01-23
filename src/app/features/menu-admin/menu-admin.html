@@ -195,6 +195,7 @@
                       color="primary"
                       (click)="openEditDialog(usuario)"
                       matTooltip="Editar"
+                      [disabled]="admins().length <= 1"
                     >
                       <mat-icon>edit</mat-icon>
                     </button>
