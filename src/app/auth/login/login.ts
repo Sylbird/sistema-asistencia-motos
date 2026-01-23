@@ -10,6 +10,7 @@ import { AuthService } from '../service';
 import { RouterLink } from '@angular/router';
 import { MatDividerModule } from '@angular/material/divider';
 import { NgOptimizedImage } from '@angular/common';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -24,15 +25,18 @@ import { NgOptimizedImage } from '@angular/common';
     ReactiveFormsModule,
     RouterLink,
     NgOptimizedImage,
+    MatSnackBarModule,
   ],
   templateUrl: './login.html',
   styleUrl: './login.scss',
 })
 export class Login {
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private snackBar: MatSnackBar,
+  ) {}
 
   hidePassword = signal(true);
-  errorMessage = signal<string | null>(null);
 
   readonly loginForm = new FormGroup({
     correo: new FormControl('', [Validators.required, Validators.email]),
@@ -51,8 +55,13 @@ export class Login {
         this.loginForm.value.clave || '',
       );
     } catch (error: any) {
-      this.errorMessage.set(error.response?.data?.message ?? error);
-      throw error;
+      const errorMessage = error?.response?.data?.message || 'Error al iniciar sesión';
+      this.snackBar.open(errorMessage, 'Cerrar', {
+        duration: 3000,
+        horizontalPosition: 'end',
+        verticalPosition: 'top',
+        panelClass: ['error-snackbar'],
+      });
     }
   }
 }
