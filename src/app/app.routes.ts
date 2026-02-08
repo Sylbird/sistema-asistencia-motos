@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { Login } from './auth/login/login';
 import { Dashboard } from './features/dashboard/dashboard';
-import { DashboardAdmin } from './features/dashboard-admin/dashboard-admin';
+import { DashboardAdmin } from './features/admin/dashboard-admin/dashboard-admin';
 import { Home } from './features/home/home';
 import { publicGuard, adminGuard, userGuard } from './auth/guard';
 import { SignUp } from './auth/sign-up/sign-up';
@@ -9,11 +9,11 @@ import { Profile } from './features/profile/profile';
 import { Checkin } from './features/checkin/checkin';
 import { ResetPassword } from './auth/reset-password/reset-password';
 import { NewPassword } from './auth/reset-password/new-password/new-password';
-import { MenuAdmin } from './features/menu-admin/menu-admin';
-import { ProgramacionAdmin } from './features/programacion-admin/programacion-admin';
-import { ParaderosAdmin } from './features/paraderos-admin/paraderos-admin';
-import { VehiculosAdmin } from './features/vehiculos-admin/vehiculos-admin';
-import { TurnosAdmin } from './features/turnos-admin/turnos-admin';
+import { MenuAdmin } from './features/admin/menu-admin/menu-admin';
+import { ProgramacionAdmin } from './features/admin/programacion-admin/programacion-admin';
+import { ParaderosAdmin } from './features/admin/paraderos-admin/paraderos-admin';
+import { VehiculosAdmin } from './features/admin/vehiculos-admin/vehiculos-admin';
+import { TurnosAdmin } from './features/admin/turnos-admin/turnos-admin';
 import { Programacion } from './features/programacion/programacion';
 
 export const routes: Routes = [

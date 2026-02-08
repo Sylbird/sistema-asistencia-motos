@@ -8,7 +8,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { Api } from '../../core/services/api';
+import { Api } from '../../../core/services/api';
 import { EditTurnoDialog, Turno } from './dialog/edit-turno-dialog';
 
 @Component({

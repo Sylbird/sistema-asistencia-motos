@@ -8,8 +8,8 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { Api } from '../../core/services/api';
 import { EditUserDialog, Usuario } from './dialog/edit-user-dialog';
+import { Api } from '../../../core/services/api';
 
 @Component({
   selector: 'app-menu-admin',

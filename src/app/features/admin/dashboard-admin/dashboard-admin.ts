@@ -3,7 +3,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
-import { AuthService } from '../../auth/service';
+import { AuthService } from '../../../auth/service';
 import { RouterModule } from '@angular/router';
 import { RouterLink } from '@angular/router';
 

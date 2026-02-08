@@ -7,8 +7,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
-import { Api } from '../../../core/services/api';
-import { Paradero } from '../../../core/services/asistencia.service';
+import { Api } from '../../../../core/services/api';
+import { Paradero } from '../../../../core/services/asistencia.service';
 
 export interface Turno {
   idTurno: string;

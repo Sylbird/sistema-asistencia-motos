@@ -9,7 +9,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatChipsModule } from '@angular/material/chips';
-import { Api } from '../../core/services/api';
+import { Api } from '../../../core/services/api';
 import { EditMotoDialog, Moto } from './dialog/edit-moto-dialog';
 
 @Component({
