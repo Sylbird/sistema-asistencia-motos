@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { AsistenciaService, Asistencia } from '../../core/services/asistencia.service';
@@ -25,6 +26,7 @@ interface HistorialGroup {
     MatIconModule,
     MatProgressSpinnerModule,
     MatSnackBarModule,
+    MatExpansionModule,
   ],
   templateUrl: './checkin.html',
   styleUrl: './checkin.scss',
@@ -160,5 +162,18 @@ export class Checkin implements OnInit {
       horizontalPosition: 'center',
       verticalPosition: 'bottom',
     });
+  }
+
+  loadMap() {
+    const loc = this.location();
+    if (loc) {
+      const mapFrame = document.getElementById('mapFrame') as HTMLIFrameElement;
+      // Check if mapFrame is already loaded
+      if (!mapFrame.src) {
+        mapFrame.src = `https://maps.google.com/maps?q=${loc.lat},${loc.lng}&z=15&output=embed`;
+      } else {
+        console.log('Map already loaded');
+      }
+    }
   }
 }

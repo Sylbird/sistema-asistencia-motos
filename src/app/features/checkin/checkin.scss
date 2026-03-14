@@ -7,6 +7,14 @@
   margin: 0 auto;
 }
 
+.expansion-panel-title {
+  color: #475569;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
 // Action Card
 .action-card {
   width: 100%;
@@ -104,17 +112,22 @@
 
 .location-status {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   gap: 8px;
   color: #059669;
   font-size: 0.9rem;
   font-weight: 500;
+  margin-bottom: 0.5rem;
 
   mat-icon {
     font-size: 18px;
     width: 18px;
     height: 18px;
+  }
+  p {
+    margin: 0 !important;
   }
 }
 
@@ -261,7 +274,7 @@
   .value {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 6px;
 
     .time {
       font-family: 'Courier New', monospace;

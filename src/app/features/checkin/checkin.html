@@ -45,6 +45,20 @@
           <mat-icon>my_location</mat-icon>
           <span>Ubicación detectada</span>
         </div>
+        <mat-expansion-panel (opened)="loadMap()">
+          <mat-expansion-panel-header>
+            <mat-panel-title class="expansion-panel-title"
+              ><mat-icon>map</mat-icon>ABRIR MAPA</mat-panel-title
+            >
+          </mat-expansion-panel-header>
+          <iframe
+            id="mapFrame"
+            width="100%"
+            height="425"
+            frameborder="0"
+            style="border: 0"
+          ></iframe>
+        </mat-expansion-panel>
       }
     </mat-card-content>
   </mat-card>
