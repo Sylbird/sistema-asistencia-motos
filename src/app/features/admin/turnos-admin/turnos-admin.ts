@@ -1,7 +1,7 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
-import { MatTableModule } from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
@@ -10,6 +10,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Api } from '../../../core/services/api';
 import { EditTurnoDialog, Turno } from './dialog/edit-turno-dialog';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-turnos-admin',
@@ -23,15 +24,20 @@ import { EditTurnoDialog, Turno } from './dialog/edit-turno-dialog';
     MatSnackBarModule,
     MatProgressSpinnerModule,
     MatTooltipModule,
+    MatPaginatorModule,
   ],
   templateUrl: './turnos-admin.html',
   styleUrl: './turnos-admin.scss',
 })
 export class TurnosAdmin {
-  turnos = signal<Turno[]>([]);
+  turnos = new MatTableDataSource<Turno>([]);
   loading = signal(false);
 
   displayedColumns = ['nombre', 'paradero', 'horaInicio', 'horaFin', 'acciones'];
+
+  @ViewChild(MatPaginator) set paginator(content: MatPaginator) {
+    this.turnos.paginator = content;
+  }
 
   constructor(
     private apiService: Api,
@@ -53,7 +59,7 @@ export class TurnosAdmin {
         data: Turno[];
       }>('/turno');
       if (response.success) {
-        this.turnos.set(response.data);
+        this.turnos.data = response.data;
       }
     } catch (error) {
       console.error('Error fetching turnos', error);

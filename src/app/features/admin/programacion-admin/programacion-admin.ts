@@ -1,7 +1,7 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
-import { MatTableModule } from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
@@ -15,6 +15,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Api } from '../../../core/services/api';
 import { EditProgramacionDialog, Programacion } from './dialog/edit-programacion-dialog';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 
 interface Paradero {
   idParadero: string;
@@ -39,19 +40,24 @@ interface Paradero {
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    MatPaginatorModule,
   ],
   templateUrl: './programacion-admin.html',
   styleUrl: './programacion-admin.scss',
 })
 export class ProgramacionAdmin {
   allProgramaciones = signal<Programacion[]>([]);
-  filteredProgramaciones = signal<Programacion[]>([]);
+  filteredProgramaciones = new MatTableDataSource<Programacion>([]);
   paraderos = signal<Paradero[]>([]);
   loading = signal(false);
   selectedDate = signal<Date>(new Date());
   selectedParadero = signal<string>('all'); // 'all' means show all paraderos
 
   displayedColumns = ['moto', 'paradero', 'turno', 'fecha', 'acciones'];
+
+  @ViewChild(MatPaginator) set paginator(content: MatPaginator) {
+    this.filteredProgramaciones.paginator = content;
+  }
 
   constructor(
     private apiService: Api,
@@ -113,7 +119,7 @@ export class ProgramacionAdmin {
       return dateMatches && paraderoMatches;
     });
 
-    this.filteredProgramaciones.set(filtered);
+    this.filteredProgramaciones.data = filtered;
   }
 
   onDateChange(date: Date | null) {

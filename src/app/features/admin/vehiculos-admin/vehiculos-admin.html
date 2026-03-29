@@ -20,9 +20,9 @@
         </div>
       }
 
-      @if (!loading() && motos().length > 0) {
+      @if (!loading() && motos.data.length > 0) {
         <div class="table-container">
-          <table mat-table [dataSource]="motos()" class="motos-table">
+          <table mat-table [dataSource]="motos" class="motos-table">
             <!-- Número Moto Column -->
             <ng-container matColumnDef="numeroMoto">
               <th mat-header-cell *matHeaderCellDef>Número</th>
@@ -104,10 +104,18 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
           </table>
+          <mat-paginator
+            [pageSizeOptions]="[5, 10, 20]"
+            showFirstLastButtons
+            aria-label="Page navigation"
+            [pageSize]="10"
+            [length]="motos.data.length"
+          >
+          </mat-paginator>
         </div>
       }
 
-      @if (!loading() && motos().length === 0) {
+      @if (!loading() && motos.data.length === 0) {
         <div class="empty-state">
           <mat-icon>directions_bike</mat-icon>
           <p>No hay motos registradas</p>

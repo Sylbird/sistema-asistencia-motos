@@ -1,13 +1,14 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
-import { MatTableModule } from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { EditUserDialog, Usuario } from './dialog/edit-user-dialog';
 import { Api } from '../../../core/services/api';
 
@@ -23,16 +24,22 @@ import { Api } from '../../../core/services/api';
     MatSnackBarModule,
     MatProgressSpinnerModule,
     MatTooltipModule,
+    MatPaginatorModule,
   ],
   templateUrl: './menu-admin.html',
   styleUrl: './menu-admin.scss',
 })
 export class MenuAdmin {
-  conductores = signal<Usuario[]>([]);
-  admins = signal<Usuario[]>([]);
+  conductores = new MatTableDataSource<Usuario>([]);
+  admins = new MatTableDataSource<Usuario>([]);
   loading = signal(false);
 
   displayedColumns = ['nombreCompleto', 'correo', 'rol', 'telefono', 'acciones'];
+
+  @ViewChild(MatPaginator) set paginator(content: MatPaginator) {
+    this.conductores.paginator = content;
+    this.admins.paginator = content;
+  }
 
   constructor(
     private apiService: Api,
@@ -65,7 +72,7 @@ export class MenuAdmin {
         data: Usuario[];
       }>('/usuario/conductores');
       if (response.success) {
-        this.conductores.set(response.data);
+        this.conductores.data = response.data;
       }
     } catch (error) {
       console.error('Error fetching conductores', error);
@@ -82,7 +89,7 @@ export class MenuAdmin {
         data: Usuario[];
       }>('/usuario/admins');
       if (response.success) {
-        this.admins.set(response.data);
+        this.admins.data = response.data;
       }
     } catch (error) {
       console.error('Error fetching admins', error);

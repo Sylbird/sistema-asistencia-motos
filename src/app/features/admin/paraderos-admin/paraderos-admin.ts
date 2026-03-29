@@ -1,7 +1,7 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
-import { MatTableModule } from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
@@ -10,6 +10,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Api } from '../../../core/services/api';
 import { EditParaderoDialog, Paradero } from './dialog/edit-paradero-dialog';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-paradero-admin',
@@ -23,12 +24,13 @@ import { EditParaderoDialog, Paradero } from './dialog/edit-paradero-dialog';
     MatSnackBarModule,
     MatProgressSpinnerModule,
     MatTooltipModule,
+    MatPaginatorModule,
   ],
   templateUrl: './paraderos-admin.html',
   styleUrl: './paraderos-admin.scss',
 })
 export class ParaderosAdmin {
-  paraderos = signal<Paradero[]>([]);
+  paraderos = new MatTableDataSource<Paradero>([]);
   loading = signal(false);
 
   displayedColumns = [
@@ -40,6 +42,10 @@ export class ParaderosAdmin {
     'radioMetros',
     'acciones',
   ];
+
+  @ViewChild(MatPaginator) set paginator(content: MatPaginator) {
+    this.paraderos.paginator = content;
+  }
 
   constructor(
     private apiService: Api,
@@ -61,7 +67,7 @@ export class ParaderosAdmin {
         data: Paradero[];
       }>('/paradero');
       if (response.success) {
-        this.paraderos.set(response.data);
+        this.paraderos.data = response.data;
       }
     } catch (error) {
       console.error('Error fetching paraderos', error);

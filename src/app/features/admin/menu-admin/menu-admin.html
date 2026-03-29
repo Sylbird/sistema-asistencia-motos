@@ -14,22 +14,22 @@
           <div class="card-title-content">
             <mat-icon>drive_eta</mat-icon>
             <span>Gestión de Conductores</span>
-            @if (conductores().length > 0) {
-              <span class="count-badge">{{ conductores().length }}</span>
+            @if (conductores.data.length > 0) {
+              <span class="count-badge">{{ conductores.data.length }}</span>
             }
           </div>
         </mat-card-title>
       </mat-card-header>
 
       <mat-card-content>
-        @if (conductores().length === 0) {
+        @if (conductores.data.length === 0) {
           <div class="empty-state">
             <mat-icon class="empty-icon">inbox</mat-icon>
             <p class="empty-text">No hay conductores registrados</p>
           </div>
         } @else {
           <div class="table-container">
-            <table mat-table [dataSource]="conductores()" class="usuarios-table">
+            <table mat-table [dataSource]="conductores" class="usuarios-table">
               <!-- Nombre Completo Column -->
               <ng-container matColumnDef="nombreCompleto">
                 <th mat-header-cell *matHeaderCellDef>Nombre Completo</th>
@@ -108,6 +108,14 @@
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
               <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
             </table>
+            <mat-paginator
+              [pageSizeOptions]="[5, 10, 20]"
+              showFirstLastButtons
+              aria-label="Page navigation"
+              [pageSize]="5"
+              [length]="conductores.data.length"
+            >
+            </mat-paginator>
           </div>
         }
       </mat-card-content>
@@ -120,22 +128,22 @@
           <div class="card-title-content">
             <mat-icon>admin_panel_settings</mat-icon>
             <span>Administradores</span>
-            @if (admins().length > 0) {
-              <span class="count-badge">{{ admins().length }}</span>
+            @if (admins.data.length > 0) {
+              <span class="count-badge">{{ admins.data.length }}</span>
             }
           </div>
         </mat-card-title>
       </mat-card-header>
 
       <mat-card-content>
-        @if (admins().length === 0) {
+        @if (admins.data.length === 0) {
           <div class="empty-state">
             <mat-icon class="empty-icon">inbox</mat-icon>
             <p class="empty-text">No hay administradores registrados</p>
           </div>
         } @else {
           <div class="table-container">
-            <table mat-table [dataSource]="admins()" class="usuarios-table">
+            <table mat-table [dataSource]="admins" class="usuarios-table">
               <!-- Nombre Completo Column -->
               <ng-container matColumnDef="nombreCompleto">
                 <th mat-header-cell *matHeaderCellDef>Nombre Completo</th>
@@ -195,7 +203,7 @@
                       color="primary"
                       (click)="openEditDialog(usuario)"
                       matTooltip="Editar"
-                      [disabled]="admins().length <= 1"
+                      [disabled]="admins.data.length <= 1"
                     >
                       <mat-icon>edit</mat-icon>
                     </button>
@@ -215,6 +223,14 @@
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
               <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
             </table>
+            <mat-paginator
+              [pageSizeOptions]="[5, 10, 20]"
+              showFirstLastButtons
+              aria-label="Page navigation"
+              [pageSize]="5"
+              [length]="conductores.data.length"
+            >
+            </mat-paginator>
           </div>
         }
       </mat-card-content>

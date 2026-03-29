@@ -1,7 +1,7 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
-import { MatTableModule } from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
@@ -11,6 +11,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatChipsModule } from '@angular/material/chips';
 import { Api } from '../../../core/services/api';
 import { EditMotoDialog, Moto } from './dialog/edit-moto-dialog';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-vehiculos-admin',
@@ -25,15 +26,20 @@ import { EditMotoDialog, Moto } from './dialog/edit-moto-dialog';
     MatProgressSpinnerModule,
     MatTooltipModule,
     MatChipsModule,
+    MatPaginatorModule,
   ],
   templateUrl: './vehiculos-admin.html',
   styleUrl: './vehiculos-admin.scss',
 })
 export class VehiculosAdmin {
-  motos = signal<Moto[]>([]);
+  motos = new MatTableDataSource<Moto>([]);
   loading = signal(false);
 
   displayedColumns = ['numeroMoto', 'placa', 'estado', 'fechaModificacion', 'acciones'];
+
+  @ViewChild(MatPaginator) set paginator(content: MatPaginator) {
+    this.motos.paginator = content;
+  }
 
   constructor(
     private apiService: Api,
@@ -55,7 +61,7 @@ export class VehiculosAdmin {
         data: Moto[];
       }>('/moto');
       if (response.success) {
-        this.motos.set(response.data);
+        this.motos.data = response.data;
       }
     } catch (error) {
       console.error('Error fetching motos', error);

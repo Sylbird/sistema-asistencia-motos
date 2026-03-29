@@ -50,9 +50,9 @@
         </div>
       }
 
-      @if (!loading() && filteredProgramaciones().length > 0) {
+      @if (!loading() && filteredProgramaciones.data.length > 0) {
         <div class="table-container">
-          <table mat-table [dataSource]="filteredProgramaciones()" class="programaciones-table">
+          <table mat-table [dataSource]="filteredProgramaciones" class="programaciones-table">
             <!-- Moto Column -->
             <ng-container matColumnDef="moto">
               <th mat-header-cell *matHeaderCellDef>Moto</th>
@@ -133,10 +133,18 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
           </table>
+          <mat-paginator
+            [pageSizeOptions]="[5, 10, 20]"
+            showFirstLastButtons
+            aria-label="Page navigation"
+            [pageSize]="10"
+            [length]="filteredProgramaciones.data.length"
+          >
+          </mat-paginator>
         </div>
       }
 
-      @if (!loading() && filteredProgramaciones().length === 0) {
+      @if (!loading() && filteredProgramaciones.data.length === 0) {
         <div class="empty-state">
           <mat-icon>event_busy</mat-icon>
           <p>No hay programaciones para la fecha seleccionada</p>
