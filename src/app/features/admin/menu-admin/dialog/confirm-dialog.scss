@@ -1,0 +1,89 @@
+.confirm-dialog {
+  min-width: 320px;
+  max-width: 450px;
+
+  .dialog-header {
+    padding: 1rem;
+    color: white;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+    &.warn {
+      background: linear-gradient(135deg, #f87171 0%, #ef4444 100%);
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      .header-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+
+        mat-icon {
+          font-size: 24px;
+          width: 24px;
+          height: 24px;
+        }
+      }
+
+      h2 {
+        padding: 0;
+        font-weight: 600;
+        color: #ffffff;
+      }
+    }
+  }
+
+  .dialog-content {
+    padding: 2rem 1.5rem !important;
+
+    p {
+      margin: 0;
+      font-size: 1.1rem;
+      color: #4a5568;
+      line-height: 1.5;
+    }
+  }
+
+  .dialog-actions {
+    padding: 1rem 1.5rem;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    border-top: 1px solid #edf2f7;
+
+    button {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-weight: 500;
+
+      mat-icon {
+        font-size: 1.25rem;
+        width: 1.25rem;
+        height: 1.25rem;
+      }
+    }
+
+    .cancel-button {
+      color: #718096;
+      &:hover {
+        background: #f7fafc;
+      }
+    }
+
+    .confirm-button {
+      &.mat-warn {
+        background: #ef4444;
+        color: white;
+      }
+    }
+  }
+}

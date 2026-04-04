@@ -1,0 +1,27 @@
+<div class="confirm-dialog">
+  <div class="dialog-header" [class]="'warn'">
+    <div class="header-content">
+      <div class="header-icon">
+        <mat-icon>delete_forever</mat-icon>
+      </div>
+      <h2 mat-dialog-title>{{ data.title }}</h2>
+    </div>
+  </div>
+
+  <mat-dialog-content class="dialog-content">
+    <p>¿Estás seguro de que deseas eliminar a {{ data.usuario }}? <b>Se eliminara toda informacion
+        relacionada
+        a este usuario</b>. Esta acción no se puede deshacer.</p>
+  </mat-dialog-content>
+
+  <mat-dialog-actions class="dialog-actions">
+    <button mat-button (click)="onCancel()" class="cancel-button">
+      <mat-icon>close</mat-icon>
+      Cancelar
+    </button>
+    <button mat-raised-button color="warn" (click)="onConfirm()" class="confirm-button">
+      <mat-icon>check</mat-icon>
+      Confirmar
+    </button>
+  </mat-dialog-actions>
+</div>

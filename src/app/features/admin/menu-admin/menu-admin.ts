@@ -10,6 +10,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { EditUserDialog, Usuario } from './dialog/edit-user-dialog';
+import { ConfirmDialog } from './dialog/confirm-dialog';
 import { Api } from '../../../core/services/api';
 
 @Component({
@@ -139,11 +140,40 @@ export class MenuAdmin {
     }
   }
 
-  deleteUsuario(usuario: Usuario) {
-    // Placeholder for future delete functionality
-    console.log('Delete usuario:', usuario);
-    this.snackBar.open('Función de eliminación en desarrollo', 'OK', {
-      duration: 2000,
+  async deleteUsuario(usuario: Usuario) {
+    const dialogRef = this.dialog.open(ConfirmDialog, {
+      width: '400px',
+      data: {
+        title: 'Eliminar Usuario',
+        usuario: `${this.getNombreCompleto(usuario)}`,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe(async (result) => {
+      if (result) {
+        this.loading.set(true);
+        try {
+          const data = { idUsuario: usuario.idUsuario };
+          const response = await this.apiService.delete<{
+            success: boolean;
+            message: string;
+          }>('/usuario/eliminar', { data });
+
+          if (response.success) {
+            this.snackBar.open('Usuario eliminado correctamente', 'OK', {
+              duration: 3000,
+              panelClass: 'success-snackbar',
+            });
+            // Reload data to reflect changes
+            await this.loadData();
+          }
+        } catch (error) {
+          console.error('Error deleting usuario', error);
+          this.snackBar.open('Error al eliminar usuario', 'Cerrar', { duration: 3000 });
+        } finally {
+          this.loading.set(false);
+        }
+      }
     });
   }
 

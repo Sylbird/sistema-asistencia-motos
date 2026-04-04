@@ -81,4 +81,13 @@ export class Api {
       throw error;
     }
   }
+
+  async delete<T>(endpoint: string, data: Record<string, any>): Promise<T> {
+    try {
+      const response = await this.axios.delete(endpoint, data);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
